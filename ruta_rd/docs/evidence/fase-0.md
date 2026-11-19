@@ -7,8 +7,9 @@ Fecha: 19 de noviembre de 2026. Commit inicial del proyecto: 713f990. Emulador: 
 - `dart format lib test` y `flutter pub get`: completados.
 - `flutter analyze`: sin problemas tras sustituir la importación obsoleta por `material_ui` 1.11.1, recomendada por Flutter 3.50.0.
 - `flutter test`: una prueba de widgets aprobada.
-- `flutter run -d emulator-5554`: APK debug compilado e instalado; el proceso Flutter inició en el emulador Pixel_10a con Android 17. La revisión visual de la pantalla queda pendiente.
-- Hot reload y comprobación en Android Studio: PENDIENTE; la sesión ejecutada no tenía entrada interactiva.
+- `flutter run -d emulator-5554`: APK debug compilado e instalado; pantalla comprobada en el emulador Pixel_10a con Android 17.
+- Hot reload: PASS. Se cambió temporalmente el texto, se ejecutó `r` y se comprobó el resultado en [la captura](hot-reload.png); después se restauró el texto original y se recargó de nuevo.
+- Ejecución desde la interfaz de Android Studio: PENDIENTE; la aplicación se ejecutó desde la terminal.
 - La zona piloto y los contratos iniciales se documentan en `docs/architecture.md` y `docs/contracts.md`; la cartografía real se revisará en fase 2.
 
 No se ha aceptado la fase 0. Las licencias deben ser revisadas y aceptadas por el responsable.
