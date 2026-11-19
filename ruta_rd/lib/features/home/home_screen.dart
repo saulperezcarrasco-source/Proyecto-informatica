@@ -32,35 +32,42 @@ class _HomeScreenState extends State<HomeScreen> {
     body: SafeArea(
       child: ListenableBuilder(
         listenable: controller,
-        builder: (context, _) => switch (controller.state) {
-          RegionState.loading => const Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CircularProgressIndicator(),
-                SizedBox(height: 16),
-                Text('Cargando la región...'),
-              ],
-            ),
-          ),
-          RegionState.error => Center(
-            child: Padding(
-              padding: const EdgeInsets.all(24),
+        builder: (context, _) => AnimatedSwitcher(
+          duration: MediaQuery.disableAnimationsOf(context)
+              ? Duration.zero
+              : const Duration(milliseconds: 250),
+          switchInCurve: Curves.easeOut,
+          switchOutCurve: Curves.easeIn,
+          child: switch (controller.state) {
+            RegionState.loading => const Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text('No se pudo cargar la región.'),
-                  const SizedBox(height: 16),
-                  FilledButton(
-                    onPressed: controller.retry,
-                    child: const Text('Reintentar'),
-                  ),
+                  CircularProgressIndicator(),
+                  SizedBox(height: 16),
+                  Text('Cargando la región...'),
                 ],
               ),
             ),
-          ),
-          RegionState.ready => const _HomeContent(),
-        },
+            RegionState.error => Center(
+              child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text('No se pudo cargar la región.'),
+                    const SizedBox(height: 16),
+                    FilledButton(
+                      onPressed: controller.retry,
+                      child: const Text('Reintentar'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            RegionState.ready => const _HomeContent(),
+          },
+        ),
       ),
     ),
   );
@@ -81,7 +88,12 @@ class _HomeContent extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
-                  color: const Color(0xffe8f1ee),
+                  decoration: const BoxDecoration(
+                    color: Color(0xffe8f1ee),
+                    borderRadius: BorderRadius.vertical(
+                      bottom: Radius.circular(32),
+                    ),
+                  ),
                   constraints: BoxConstraints(
                     minHeight: constraints.maxHeight * .56,
                   ),
@@ -170,8 +182,13 @@ class _HomeContent extends StatelessWidget {
                 Center(
                   child: ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 720),
-                    child: Padding(
+                    child: Container(
+                      margin: const EdgeInsets.fromLTRB(12, 12, 12, 16),
                       padding: const EdgeInsets.fromLTRB(20, 22, 20, 28),
+                      decoration: BoxDecoration(
+                        color: colors.surfaceContainerLow,
+                        borderRadius: BorderRadius.circular(28),
+                      ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
