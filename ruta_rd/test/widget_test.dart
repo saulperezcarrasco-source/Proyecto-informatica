@@ -53,4 +53,53 @@ void main() {
     await tester.pumpAndSettle();
     expect(tester.takeException(), isNull);
   });
+
+  for (final size in [const Size(320, 480), const Size(640, 320)]) {
+    testWidgets('controles accesibles al desplazarse en $size', (tester) async {
+      await tester.binding.setSurfaceSize(size);
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+      await tester.pumpWidget(
+        MaterialApp(
+          home: MediaQuery(
+            data: MediaQueryData(
+              size: size,
+              textScaler: const TextScaler.linear(2),
+            ),
+            child: const HomeScreen(),
+          ),
+        ),
+      );
+      for (final label in ['Mi ubicación', 'Calcular ruta', 'Limpiar']) {
+        await tester.ensureVisible(find.text(label));
+        await tester.pumpAndSettle();
+        expect(
+          tester.getRect(find.text(label)).overlaps(Offset.zero & size),
+          isTrue,
+        );
+        expect(tester.takeException(), isNull);
+      }
+    });
+  }
+
+  testWidgets('el contenido sigue desplazable con espacio para teclado', (
+    tester,
+  ) async {
+    await tester.binding.setSurfaceSize(const Size(320, 480));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: MediaQuery(
+          data: MediaQueryData(
+            size: Size(320, 480),
+            viewInsets: EdgeInsets.only(bottom: 220),
+          ),
+          child: HomeScreen(),
+        ),
+      ),
+    );
+    await tester.ensureVisible(find.text('Limpiar'));
+    await tester.pumpAndSettle();
+    expect(tester.getRect(find.text('Limpiar')).bottom, lessThanOrEqualTo(260));
+    expect(tester.takeException(), isNull);
+  });
 }
