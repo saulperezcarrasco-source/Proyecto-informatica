@@ -1,0 +1,3 @@
+# Instrucciones del proyecto
+
+Lee `../PLAN_DE_TRABAJO.md`, `docs/architecture.md` y `docs/contracts.md`. Implementa solo la fase asignada y conserva cambios existentes. No uses reset --hard ni abras ramas paralelas antes de aceptar el MVP. No añadas backend o servicios remotos ni presentes datos simulados como reales. Separa lógica e interfaz, gestiona errores y justifica dependencias nuevas. Ejecuta formato, análisis y pruebas pertinentes; registra resultados y pendientes en `docs/progress.md` y `docs/evidence/fase-N.md`. No declares probado un dispositivo que no ejecutaste ni comiences la siguiente fase automáticamente.
