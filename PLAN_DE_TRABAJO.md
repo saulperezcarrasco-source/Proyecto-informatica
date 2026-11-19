@@ -40,7 +40,7 @@ No significa la ruta más segura, accesible o rápida según condiciones
 reales.
 
 ### Fuera del MVP
-z
+
 - Rutas para vehículos.
 - Tráfico en tiempo real.
 - Navegación por voz.
