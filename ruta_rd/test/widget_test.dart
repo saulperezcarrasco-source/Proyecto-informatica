@@ -102,4 +102,15 @@ void main() {
     expect(tester.getRect(find.text('Limpiar')).bottom, lessThanOrEqualTo(260));
     expect(tester.takeException(), isNull);
   });
+
+  testWidgets('el campo de prueba admite texto sin activar la búsqueda real', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      const MaterialApp(home: HomeScreen(searchPreview: true)),
+    );
+    await tester.enterText(find.byType(TextField), 'Prueba');
+    expect(find.text('Prueba'), findsOneWidget);
+    expect(find.text('Búsqueda disponible próximamente'), findsOneWidget);
+  });
 }

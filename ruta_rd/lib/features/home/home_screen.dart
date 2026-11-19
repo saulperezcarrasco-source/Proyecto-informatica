@@ -3,8 +3,11 @@ import 'package:material_ui/material_ui.dart';
 import 'home_controller.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key, this.controller});
+  const HomeScreen({super.key, this.controller, this.searchPreview = false});
   final HomeController? controller;
+
+  /// Enables text entry only for keyboard layout verification.
+  final bool searchPreview;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -65,7 +68,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            RegionState.ready => const _HomeContent(),
+            RegionState.ready => _HomeContent(
+              searchPreview: widget.searchPreview,
+            ),
           },
         ),
       ),
@@ -74,7 +79,8 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class _HomeContent extends StatelessWidget {
-  const _HomeContent();
+  const _HomeContent({required this.searchPreview});
+  final bool searchPreview;
 
   @override
   Widget build(BuildContext context) {
@@ -129,9 +135,9 @@ class _HomeContent extends StatelessWidget {
                               elevation: 2,
                               shadowColor: const Color(0x22000000),
                               borderRadius: BorderRadius.circular(28),
-                              child: const TextField(
-                                enabled: false,
-                                decoration: InputDecoration(
+                              child: TextField(
+                                enabled: searchPreview,
+                                decoration: const InputDecoration(
                                   labelText: 'Buscar un lugar',
                                   prefixIcon: Icon(Icons.search_rounded),
                                   border: InputBorder.none,
