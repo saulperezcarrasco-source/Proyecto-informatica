@@ -29,7 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text('Ruta RD Offline')),
     body: SafeArea(
       child: ListenableBuilder(
         listenable: controller,
@@ -72,35 +71,51 @@ class _HomeContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SingleChildScrollView(
-    padding: const EdgeInsets.all(16),
+    padding: EdgeInsets.zero,
     child: Center(
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 720),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              'Explora a pie',
-              style: Theme.of(context).textTheme.headlineSmall,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 18, 20, 12),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.directions_walk_rounded,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      'Ruta RD Offline',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(height: 8),
-            const Text('Ciudad Colonial, Santo Domingo · zona piloto'),
-            const SizedBox(height: 16),
-            const TextField(
-              enabled: false,
-              decoration: InputDecoration(
-                labelText: 'Buscar un lugar',
-                helperText: 'Búsqueda disponible en una próxima fase',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: TextField(
+                enabled: false,
+                decoration: InputDecoration(
+                  labelText: 'Buscar un lugar',
+                  helperText: 'Búsqueda disponible en una próxima fase',
+                  prefixIcon: Icon(Icons.search),
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(28)),
+                  ),
+                ),
               ),
             ),
             const SizedBox(height: 16),
             Container(
-              constraints: const BoxConstraints(minHeight: 240),
+              constraints: const BoxConstraints(minHeight: 360),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                borderRadius: BorderRadius.circular(16),
               ),
               child: const Center(
                 child: Padding(
@@ -124,58 +139,64 @@ class _HomeContent extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      'Tu recorrido',
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    const SizedBox(height: 12),
-                    const ListTile(
-                      leading: CircleAvatar(child: Text('A')),
-                      title: Text('Origen'),
-                      subtitle: Text('Sin seleccionar'),
-                      contentPadding: EdgeInsets.zero,
-                    ),
-                    const ListTile(
-                      leading: CircleAvatar(child: Text('B')),
-                      title: Text('Destino'),
-                      subtitle: Text('Sin seleccionar'),
-                      contentPadding: EdgeInsets.zero,
-                    ),
-                    const SizedBox(height: 8),
-                    const Text(
-                      'La selección de puntos y el cálculo estarán disponibles en próximas fases.',
-                    ),
-                    const SizedBox(height: 12),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: [
-                        OutlinedButton.icon(
-                          onPressed: null,
-                          icon: Icon(Icons.my_location),
-                          label: Text('Mi ubicación'),
-                        ),
-                        FilledButton.icon(
-                          onPressed: null,
-                          icon: Icon(Icons.directions_walk),
-                          label: Text('Calcular ruta'),
-                        ),
-                        TextButton(onPressed: null, child: Text('Limpiar')),
-                      ],
-                    ),
-                  ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Card(
+                child: Padding(
+                  padding: EdgeInsets.zero,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        'Tu recorrido',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      const SizedBox(height: 12),
+                      const ListTile(
+                        leading: CircleAvatar(child: Text('A')),
+                        title: Text('Origen'),
+                        subtitle: Text('Sin seleccionar'),
+                        contentPadding: EdgeInsets.zero,
+                      ),
+                      const ListTile(
+                        leading: CircleAvatar(child: Text('B')),
+                        title: Text('Destino'),
+                        subtitle: Text('Sin seleccionar'),
+                        contentPadding: EdgeInsets.zero,
+                      ),
+                      const SizedBox(height: 8),
+                      const Text(
+                        'La selección de puntos y el cálculo estarán disponibles en próximas fases.',
+                      ),
+                      const SizedBox(height: 12),
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: [
+                          OutlinedButton.icon(
+                            onPressed: null,
+                            icon: Icon(Icons.my_location),
+                            label: Text('Mi ubicación'),
+                          ),
+                          FilledButton.icon(
+                            onPressed: null,
+                            icon: Icon(Icons.directions_walk),
+                            label: Text('Calcular ruta'),
+                          ),
+                          TextButton(onPressed: null, child: Text('Limpiar')),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
             const SizedBox(height: 12),
-            const Text(
-              'Los resultados de búsqueda y el resumen de ruta aparecerán aquí cuando estén disponibles.',
+            const Padding(
+              padding: EdgeInsets.fromLTRB(20, 0, 20, 24),
+              child: Text(
+                'Los resultados de búsqueda y el resumen de ruta aparecerán aquí cuando estén disponibles.',
+              ),
             ),
           ],
         ),
