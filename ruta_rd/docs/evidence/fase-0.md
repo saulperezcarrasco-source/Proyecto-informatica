@@ -1,6 +1,6 @@
 # Evidencia de fase 0
 
-Fecha: 19 de noviembre de 2026. Commit: pendiente. Dispositivo y versión Android: pendientes.
+Fecha: 19 de noviembre de 2026. Commit inicial del proyecto: 713f990. Emulador: Pixel_10a, Android 17.
 
 - `flutter doctor -v`: Flutter 3.50.0 estable, Dart 3.14.0, Android SDK 36.0.0. Se instalaron las Android SDK Command-line Tools; siete licencias adicionales requieren revisión. Visual Studio no está instalado, pero no es necesario para Android.
 - `flutter create --platforms=android ruta_rd`: proyecto creado correctamente.
