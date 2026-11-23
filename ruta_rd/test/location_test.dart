@@ -1,0 +1,269 @@
+import 'dart:async';
+
+import 'package:flutter_test/flutter_test.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:ruta_rd/core/models/models.dart';
+import 'package:ruta_rd/features/home/home_controller.dart';
+import 'package:ruta_rd/features/location/location_service.dart';
+
+const manual = Coordinate(lat: 18.474, lon: -69.885);
+const gps = Coordinate(lat: 19.4517, lon: -70.697);
+Position samplePosition({
+  double lat = 19.4517,
+  double lon = -70.697,
+  double accuracy = 8,
+}) => Position(
+  latitude: lat,
+  longitude: lon,
+  accuracy: accuracy,
+  timestamp: DateTime(2026, 11, 19),
+  altitude: 0,
+  altitudeAccuracy: 0,
+  heading: 0,
+  headingAccuracy: 0,
+  speed: 0,
+  speedAccuracy: 0,
+);
+
+class FakeGps extends GpsPlatform {
+  bool enabled = true, approximate = false;
+  LocationPermission permission = LocationPermission.whileInUse;
+  LocationPermission granted = LocationPermission.whileInUse;
+  int requests = 0, positions = 0;
+  LocationSettings? settings;
+  Future<Position> Function() read = () async => samplePosition();
+  @override
+  Future<bool> isEnabled() async => enabled;
+  @override
+  Future<LocationPermission> checkPermission() async => permission;
+  @override
+  Future<LocationPermission> requestPermission() async {
+    requests++;
+    return granted;
+  }
+
+  @override
+  Future<Position> position(LocationSettings value) async {
+    positions++;
+    settings = value;
+    return read();
+  }
+
+  @override
+  Future<bool> isApproximate() async => approximate;
+}
+
+class StubLocation extends LocationService {
+  StubLocation(this.read);
+  Future<LocationReading> Function() read;
+  int calls = 0;
+  @override
+  Future<LocationReading> getCurrentLocation() {
+    calls++;
+    return read();
+  }
+}
+
+Matcher failure(LocationFailure value) =>
+    isA<LocationException>().having((error) => error.failure, 'failure', value);
+
+void main() {
+  test(
+    'GPS desactivado, denegado y bloqueado sin bucles de permisos',
+    () async {
+      final native = FakeGps()..enabled = false;
+      final service = GpsLocationService(platform: native);
+      await expectLater(
+        service.getCurrentLocation(),
+        throwsA(failure(LocationFailure.serviceDisabled)),
+      );
+      expect(native.requests, 0);
+      expect(native.positions, 0);
+      native
+        ..enabled = true
+        ..permission = LocationPermission.denied
+        ..granted = LocationPermission.denied;
+      await expectLater(
+        service.getCurrentLocation(),
+        throwsA(failure(LocationFailure.permissionDenied)),
+      );
+      expect(native.requests, 1);
+      expect(native.positions, 0);
+      native.permission = LocationPermission.deniedForever;
+      await expectLater(
+        service.getCurrentLocation(),
+        throwsA(failure(LocationFailure.permissionDeniedForever)),
+      );
+      expect(native.requests, 1);
+      expect(native.positions, 0);
+    },
+  );
+  test(
+    'permiso puntual, precisión aproximada y tiempo máximo de 15 segundos',
+    () async {
+      final native = FakeGps()
+        ..permission = LocationPermission.denied
+        ..approximate = true;
+      final result = await GpsLocationService(platform: native)
+          .getCurrentLocation();
+      expect(native.requests, 1);
+      expect(native.positions, 1);
+      expect(native.settings!.timeLimit, const Duration(seconds: 15));
+      expect(result.coordinate.lat, gps.lat);
+      expect(result.accuracy, 8);
+      expect(result.approximate, isTrue);
+    },
+  );
+  test(
+    'se recupera de tiempo agotado, datos inválidos y error del proveedor',
+    () async {
+      final native = FakeGps()..read = () => Completer<Position>().future;
+      final service = GpsLocationService(
+        platform: native,
+        timeout: const Duration(milliseconds: 5),
+      );
+      await expectLater(
+        service.getCurrentLocation(),
+        throwsA(failure(LocationFailure.timeout)),
+      );
+      native.read = () async => samplePosition(accuracy: double.nan);
+      await expectLater(
+        service.getCurrentLocation(),
+        throwsA(failure(LocationFailure.invalidPosition)),
+      );
+      native.read = () async => samplePosition(lat: 91);
+      await expectLater(
+        service.getCurrentLocation(),
+        throwsA(failure(LocationFailure.invalidPosition)),
+      );
+      native.read = () async => throw StateError('fixture');
+      await expectLater(
+        service.getCurrentLocation(),
+        throwsA(failure(LocationFailure.unavailable)),
+      );
+      native.read = () async => samplePosition();
+      expect((await service.getCurrentLocation()).isValid, isTrue);
+    },
+  );
+  test('consulta solo al pulsar y evita solicitudes simultáneas', () async {
+    final result = Completer<LocationReading>();
+    final location = StubLocation(() => result.future);
+    final c = HomeController(location: location);
+    addTearDown(c.dispose);
+    expect(location.calls, 0);
+    final pending = c.locate();
+    await c.locate();
+    expect(location.calls, 1);
+    expect(c.locating, isTrue);
+    result.complete(const LocationReading(gps, 2000, approximate: true));
+    await pending;
+    expect(c.origin!.category, 'gps');
+    expect(c.accuracy, 2000);
+    expect(c.approximateLocation, isTrue);
+    expect(c.locating, isFalse);
+  });
+  test('un fallo GPS conserva origen, destino y ruta anteriores', () async {
+    final location = StubLocation(
+      () async => const LocationReading(Coordinate(lat: 51.5, lon: -.1), 8),
+    );
+    final c = HomeController(location: location);
+    addTearDown(c.dispose);
+    c.select(
+      const Place(
+        id: 'a',
+        name: 'Manual',
+        category: 'manual',
+        coordinate: manual,
+      ),
+      Selection.origin,
+    );
+    c.select(
+      const Place(
+        id: 'b',
+        name: 'Destino',
+        category: 'manual',
+        coordinate: manual,
+      ),
+      Selection.destination,
+    );
+    final old = c.route = const RouteResult(
+      coordinates: [manual],
+      distanceMeters: 0,
+      estimatedMinutes: 0,
+      originApproachMeters: 0,
+      destinationApproachMeters: 0,
+    );
+    final origin = c.origin, destination = c.destination;
+    await c.locate();
+    expect(c.locationFailure, LocationFailure.outsideCoverage);
+    expect(c.origin, same(origin));
+    expect(c.destination, same(destination));
+    expect(c.route, same(old));
+    for (final error in [
+      LocationFailure.permissionDenied,
+      LocationFailure.permissionDeniedForever,
+      LocationFailure.serviceDisabled,
+      LocationFailure.timeout,
+      LocationFailure.unavailable,
+    ]) {
+      location.read = () async => throw LocationException(error);
+      await c.locate();
+      expect(c.locationFailure, error);
+      expect(c.origin, same(origin));
+      expect(c.route, same(old));
+    }
+    location.read = () async => const LocationReading(gps, -1);
+    await c.locate();
+    expect(c.locationFailure, LocationFailure.invalidPosition);
+    expect(c.origin, same(origin));
+  });
+  test('GPS tardío no sustituye un origen manual ni restaura una selección borrada', () async {
+    for (final action in ['map', 'clear', 'edit-origin']) {
+      final result = Completer<LocationReading>();
+      final c = HomeController(location: StubLocation(() => result.future));
+      addTearDown(c.dispose);
+      final pending = c.locate();
+      if (action == 'clear') {
+        c.clear();
+      } else if (action == 'edit-origin') {
+        c.clearEndpoint(Selection.origin);
+      } else {
+        c.chooseOnMap(Selection.origin);
+        c.mapPoint(manual);
+      }
+      result.complete(const LocationReading(gps, 5));
+      await pending;
+      expect(c.locating, isFalse);
+      if (action != 'map') {
+        expect(c.origin, isNull);
+      } else {
+        expect(c.origin!.coordinate, manual);
+      }
+    }
+  });
+  test(
+    'cancelar o destruir durante la consulta descarta éxito y error tardíos',
+    () async {
+      for (final dispose in [false, true]) {
+        final result = Completer<LocationReading>();
+        final c = HomeController(location: StubLocation(() => result.future));
+        var changes = 0;
+        c.addListener(() => changes++);
+        final pending = c.locate();
+        if (dispose) {
+          c.dispose();
+        } else {
+          c.cancelLocation();
+        }
+        final previous = changes;
+        result.completeError(
+          const LocationException(LocationFailure.unavailable),
+        );
+        await pending;
+        expect(changes, previous);
+        expect(c.origin, isNull);
+        if (!dispose) c.dispose();
+      }
+    },
+  );
+}

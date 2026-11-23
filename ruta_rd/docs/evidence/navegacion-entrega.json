@@ -1,0 +1,15 @@
+{
+    "version":  "1.1.0-demo+4",
+    "codeCommit":  "e83ea01abd2d4fdf8f030b0f64a63d30b30a7188",
+    "file":  "ruta-rd-v1.1.0-demo-android-universal.apk",
+    "bytes":  139139316,
+    "sha256":  "515b2efa0789d2df00acef6db741f2f68d04659ed3404e2381606232dfa747a9",
+    "architectures":  [
+                          "armeabi-v7a",
+                          "arm64-v8a",
+                          "x86_64"
+                      ],
+    "signing":  "Android Debug; demonstration",
+    "validation":  "Static APK checks passed; runtime devices, modes and GPS scope recorded separately in delivery evidence",
+    "utc":  "2026-11-20T21:57:10.0247244Z"
+}

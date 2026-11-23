@@ -1,0 +1,144 @@
+Verifies
+Verified using v1 scheme (JAR signing): false
+Verified using v2 scheme (APK Signature Scheme v2): true
+Verified using v3 scheme (APK Signature Scheme v3): false
+Verified using v3.1 scheme (APK Signature Scheme v3.1): false
+Verified using v4 scheme (APK Signature Scheme v4): false
+Verified for SourceStamp: false
+Number of signers: 1
+Signer #1 certificate DN: C=US, O=Android, CN=Android Debug
+Signer #1 certificate SHA-256 digest: 66da447f8bb2deebbb66968aa472b3a7651b668a0ca1b0ba1b4d2790fbfe1ce2
+Signer #1 certificate SHA-1 digest: 547f4d2686cb5584b35c4c14b13f3d32ba0e1427
+Signer #1 certificate MD5 digest: 6e57c55aab710fd7574faad1223fb782
+Signer #1 key algorithm: RSA
+Signer #1 key size (bits): 2048
+Signer #1 public key SHA-256 digest: ec989b0432807a4cefa04e71f8540612ef556cf0840c3df05532a433e7cf0bba
+Signer #1 public key SHA-1 digest: 6e0dc75b84ad5cb8d76b8cd5ce2ee72ad25c2c1f
+Signer #1 public key MD5 digest: 3bf06ad179edb2ee3d5150cd54e37819
+ZIP alignment 16 KB: PASS
+package: name='com.example.ruta_rd' versionCode='3' versionName='1.0.1-demo' platformBuildVersionName='16' platformBuildVersionCode='36' compileSdkVersion='36' compileSdkVersionCodename='16'
+sdkVersion:'24'
+targetSdkVersion:'36'
+uses-permission: name='android.permission.ACCESS_FINE_LOCATION'
+uses-permission: name='android.permission.ACCESS_COARSE_LOCATION'
+uses-permission: name='com.example.ruta_rd.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'
+application-label:'Ruta RD Offline'
+application-label-af:'Ruta RD Offline'
+application-label-am:'Ruta RD Offline'
+application-label-ar:'Ruta RD Offline'
+application-label-as:'Ruta RD Offline'
+application-label-az:'Ruta RD Offline'
+application-label-be:'Ruta RD Offline'
+application-label-bg:'Ruta RD Offline'
+application-label-bn:'Ruta RD Offline'
+application-label-bs:'Ruta RD Offline'
+application-label-ca:'Ruta RD Offline'
+application-label-cs:'Ruta RD Offline'
+application-label-da:'Ruta RD Offline'
+application-label-de:'Ruta RD Offline'
+application-label-el:'Ruta RD Offline'
+application-label-en-AU:'Ruta RD Offline'
+application-label-en-CA:'Ruta RD Offline'
+application-label-en-GB:'Ruta RD Offline'
+application-label-en-IN:'Ruta RD Offline'
+application-label-en-XC:'Ruta RD Offline'
+application-label-es:'Ruta RD Offline'
+application-label-es-US:'Ruta RD Offline'
+application-label-et:'Ruta RD Offline'
+application-label-eu:'Ruta RD Offline'
+application-label-fa:'Ruta RD Offline'
+application-label-fi:'Ruta RD Offline'
+application-label-fr:'Ruta RD Offline'
+application-label-fr-CA:'Ruta RD Offline'
+application-label-gl:'Ruta RD Offline'
+application-label-gu:'Ruta RD Offline'
+application-label-hi:'Ruta RD Offline'
+application-label-hr:'Ruta RD Offline'
+application-label-hu:'Ruta RD Offline'
+application-label-hy:'Ruta RD Offline'
+application-label-in:'Ruta RD Offline'
+application-label-is:'Ruta RD Offline'
+application-label-it:'Ruta RD Offline'
+application-label-iw:'Ruta RD Offline'
+application-label-ja:'Ruta RD Offline'
+application-label-ka:'Ruta RD Offline'
+application-label-kk:'Ruta RD Offline'
+application-label-km:'Ruta RD Offline'
+application-label-kn:'Ruta RD Offline'
+application-label-ko:'Ruta RD Offline'
+application-label-ky:'Ruta RD Offline'
+application-label-lo:'Ruta RD Offline'
+application-label-lt:'Ruta RD Offline'
+application-label-lv:'Ruta RD Offline'
+application-label-mk:'Ruta RD Offline'
+application-label-ml:'Ruta RD Offline'
+application-label-mn:'Ruta RD Offline'
+application-label-mr:'Ruta RD Offline'
+application-label-ms:'Ruta RD Offline'
+application-label-my:'Ruta RD Offline'
+application-label-nb:'Ruta RD Offline'
+application-label-ne:'Ruta RD Offline'
+application-label-nl:'Ruta RD Offline'
+application-label-or:'Ruta RD Offline'
+application-label-pa:'Ruta RD Offline'
+application-label-pl:'Ruta RD Offline'
+application-label-pt:'Ruta RD Offline'
+application-label-pt-BR:'Ruta RD Offline'
+application-label-pt-PT:'Ruta RD Offline'
+application-label-ro:'Ruta RD Offline'
+application-label-ru:'Ruta RD Offline'
+application-label-si:'Ruta RD Offline'
+application-label-sk:'Ruta RD Offline'
+application-label-sl:'Ruta RD Offline'
+application-label-sq:'Ruta RD Offline'
+application-label-sr:'Ruta RD Offline'
+application-label-sr-Latn:'Ruta RD Offline'
+application-label-sv:'Ruta RD Offline'
+application-label-sw:'Ruta RD Offline'
+application-label-ta:'Ruta RD Offline'
+application-label-te:'Ruta RD Offline'
+application-label-th:'Ruta RD Offline'
+application-label-tl:'Ruta RD Offline'
+application-label-tr:'Ruta RD Offline'
+application-label-uk:'Ruta RD Offline'
+application-label-ur:'Ruta RD Offline'
+application-label-uz:'Ruta RD Offline'
+application-label-vi:'Ruta RD Offline'
+application-label-zh-CN:'Ruta RD Offline'
+application-label-zh-HK:'Ruta RD Offline'
+application-label-zh-TW:'Ruta RD Offline'
+application-label-zu:'Ruta RD Offline'
+application-icon-160:'res/9w.png'
+application-icon-240:'res/yn.png'
+application-icon-320:'res/FS.png'
+application-icon-480:'res/RJ.png'
+application-icon-640:'res/o-.png'
+application: label='Ruta RD Offline' icon='res/9w.png'
+launchable-activity: name='com.example.ruta_rd.MainActivity'  label='' icon=''
+uses-library-not-required:'androidx.window.extensions'
+uses-library-not-required:'androidx.window.sidecar'
+feature-group: label=''
+  uses-feature: name='android.hardware.faketouch'
+  uses-implied-feature: name='android.hardware.faketouch' reason='default feature for all apps'
+  uses-feature: name='android.hardware.location'
+  uses-implied-feature: name='android.hardware.location' reason='requested android.permission.ACCESS_COARSE_LOCATION permission, and requested android.permission.ACCESS_FINE_LOCATION permission'
+main
+other-activities
+other-receivers
+other-services
+supports-screens: 'small' 'normal' 'large' 'xlarge'
+supports-any-density: 'true'
+locales: '--_--' 'af' 'am' 'ar' 'as' 'az' 'be' 'bg' 'bn' 'bs' 'ca' 'cs' 'da' 'de' 'el' 'en-AU' 'en-CA' 'en-GB' 'en-IN' 'en-XC' 'es' 'es-US' 'et' 'eu' 'fa' 'fi' 'fr' 'fr-CA' 'gl' 'gu' 'hi' 'hr' 'hu' 'hy' 'in' 'is' 'it' 'iw' 'ja' 'ka' 'kk' 'km' 'kn' 'ko' 'ky' 'lo' 'lt' 'lv' 'mk' 'ml' 'mn' 'mr' 'ms' 'my' 'nb' 'ne' 'nl' 'or' 'pa' 'pl' 'pt' 'pt-BR' 'pt-PT' 'ro' 'ru' 'si' 'sk' 'sl' 'sq' 'sr' 'sr-Latn' 'sv' 'sw' 'ta' 'te' 'th' 'tl' 'tr' 'uk' 'ur' 'uz' 'vi' 'zh-CN' 'zh-HK' 'zh-TW' 'zu'
+densities: '160' '240' '320' '480' '640'
+native-code: 'arm64-v8a' 'armeabi-v7a' 'x86_64'
+Flutter engine + AOT armeabi-v7a : PASS
+Flutter engine + AOT arm64-v8a : PASS
+Flutter engine + AOT x86_64 : PASS
+ELF 16 KB lib/arm64-v8a/libapp.so: PASS (3 LOAD segments)
+ELF 16 KB lib/arm64-v8a/libdartjni.so: PASS (3 LOAD segments)
+ELF 16 KB lib/arm64-v8a/libdatastore_shared_counter.so: PASS (4 LOAD segments)
+ELF 16 KB lib/arm64-v8a/libflutter.so: PASS (3 LOAD segments)
+ELF 16 KB lib/x86_64/libapp.so: PASS (3 LOAD segments)
+ELF 16 KB lib/x86_64/libdartjni.so: PASS (3 LOAD segments)
+ELF 16 KB lib/x86_64/libdatastore_shared_counter.so: PASS (4 LOAD segments)
+ELF 16 KB lib/x86_64/libflutter.so: PASS (3 LOAD segments)

@@ -9,6 +9,9 @@ android {
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
+    androidResources { noCompress += "pmtiles" }
+    androidResources { noCompress += "rdi" }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -31,8 +34,8 @@ android {
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
+            // Demonstration APK only. The development keystore stays outside
+            // the repository. This signing configuration is not for Google Play.
             signingConfig = signingConfigs.getByName("debug")
         }
     }

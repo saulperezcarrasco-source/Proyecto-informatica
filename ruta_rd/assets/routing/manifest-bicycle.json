@@ -1,0 +1,29 @@
+{
+  "mode": "bicycle",
+  "format": "RDI2 little-endian gzip",
+  "nodes": 1508567,
+  "directedEdges": 3182198,
+  "prohibitedTurns": 204,
+  "avoidedViaWays": 32,
+  "bytes": 22631154,
+  "sha256": "98d15907a5d01bb6cc70c7ff56e04681c51106a0e3f9ed73ba2599de4ec41c11",
+  "sourceSha256": "649b91a2e737e6d6f1b7588eb598d88e4e262f1cce3119a9b97dadf5172734f6",
+  "dataDate": "2026-11-18",
+  "attribution": "OpenStreetMap contributors, ODbL 1.0",
+  "policy": "Mode-specific access, barriers and oneway; full node/edge national clipping; node-via turn restrictions; complex via-way restrictions avoided. Shortest distance, not traffic-aware fastest route. Time-dependent/reversible direction ways omitted. Bicycles on motorroad require explicit permission.",
+  "limitations": "Conditional access ways excluded; conditional turn restrictions applied conservatively at all times. Destination/private access excluded. OSM may be incomplete. Not field verified; no traffic or live closures.",
+  "temporalFilterRevision": 1,
+  "temporallyFilteredEdges": 14,
+  "avoidedTimeDependentWays": [
+    28245635,
+    28245679,
+    675535477,
+    1409318598,
+    1409318599,
+    1451435833,
+    1451435834,
+    1451435835,
+    1451435836,
+    1451435837
+  ]
+}

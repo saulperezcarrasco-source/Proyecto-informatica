@@ -1,0 +1,11 @@
+{
+    "version":  "1.2.0-demo+5",
+    "device":  "emulator-5554",
+    "mode":  "normal release universal",
+    "navigationKm":  "57.6 km restantes",
+    "darkLabels":  true,
+    "poiOptions":  true,
+    "poi":  "Monumento a los Héroes de la Restauración, turismo",
+    "gps":  "Android emulator injected; not physical",
+    "utc":  "2026-11-21T00:52:48.7076256Z"
+}

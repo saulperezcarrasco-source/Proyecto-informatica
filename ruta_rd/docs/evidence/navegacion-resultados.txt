@@ -1,0 +1,49 @@
+Validacion 1.1.0-demo+4; movimiento simulado explicitamente identificado.
+Archivo: build/navigation-analyze.log
+No issues found! (ran in 3.1s)
+Archivo: build/navigation-tests.log
+00:00 +13: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/national_search_test.dart: índice nacional offline: ciudades, calles, negocios y turismo fuera del piloto
+00:00 +14: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/national_search_test.dart: índice nacional offline: ciudades, calles, negocios y turismo fuera del piloto
+00:00 +15: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/national_search_test.dart: índice nacional offline: ciudades, calles, negocios y turismo fuera del piloto
+00:00 +16: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/national_search_test.dart: índice nacional offline: ciudades, calles, negocios y turismo fuera del piloto
+00:00 +17: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/national_search_test.dart: índice nacional offline: ciudades, calles, negocios y turismo fuera del piloto
+00:00 +18: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/national_search_test.dart: índice nacional offline: ciudades, calles, negocios y turismo fuera del piloto
+00:00 +19: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/national_search_test.dart: índice nacional offline: ciudades, calles, negocios y turismo fuera del piloto
+00:00 +20: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/national_search_test.dart: índice nacional offline: ciudades, calles, negocios y turismo fuera del piloto
+00:00 +21: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/national_search_test.dart: índice nacional offline: ciudades, calles, negocios y turismo fuera del piloto
+00:00 +22: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/national_search_test.dart: índice nacional offline: ciudades, calles, negocios y turismo fuera del piloto
+00:01 +23: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/national_search_test.dart: índice nacional offline: ciudades, calles, negocios y turismo fuera del piloto
+00:01 +24: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/national_search_test.dart: índice nacional offline: ciudades, calles, negocios y turismo fuera del piloto
+00:01 +25: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/national_search_test.dart: índice nacional offline: ciudades, calles, negocios y turismo fuera del piloto
+00:01 +26: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/national_search_test.dart: índice nacional offline: ciudades, calles, negocios y turismo fuera del piloto
+NATIONAL_SEARCH Puerto Plata: 15 results, 93 ms
+NATIONAL_SEARCH Santiago: 15 results, 51 ms
+NATIONAL_SEARCH 27 de Febrero: 15 results, 29 ms
+NATIONAL_SEARCH Sirena: 15 results, 25 ms
+NATIONAL_SEARCH Salto El Limón: 2 results, 26 ms
+00:05 +50: All tests passed!
+Archivo: build/navigation-android.log
+00:00 +0: loading C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/navigation_test.dart
+00:00 +0: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/navigation_test.dart: RD nacional, navegación con movimiento y zoom/pan sin perder estado
+#4      main.<anonymous closure> (file:///C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/navigation_test.dart:42:7)
+  file:///C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/navigation_test.dart line 42
+00:30 +0 -1: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/navigation_test.dart: RD nacional, navegación con movimiento y zoom/pan sin perder estado [E]
+00:30 +0 -1: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/navigation_test.dart: (tearDownAll)
+FAVORITES_ANDROID saved=2 reopened=2 removed=1 remaining=1 region=zona_piloto version=0.1.0 routeMeters=166.18774111416843; offline storage
+MVP_SEARCH_ROUTE distance=166.18774111416843 elapsedMs=5.781
+ISLAND_ANDROID distance=130283.86999386549 vertices=2342 elapsedMs=677.649 approachA=8.758780463728815 approachB=15.164268334136096
+  C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/navigation_test.dart: RD nacional, navegación con movimiento y zoom/pan sin perder estado
+Archivo: build/navigation-android-final.log
+00:00 +0: loading C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/navigation_test.dart
+00:00 +0: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/navigation_test.dart: RD nacional, navegación con movimiento y zoom/pan sin perder estado
+#4      main.<anonymous closure> (file:///C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/navigation_test.dart:85:7)
+  file:///C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/navigation_test.dart line 85
+00:21 +0 -1: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/navigation_test.dart: RD nacional, navegación con movimiento y zoom/pan sin perder estado [E]
+00:21 +0 -1: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/navigation_test.dart: (tearDownAll)
+  C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/navigation_test.dart: RD nacional, navegación con movimiento y zoom/pan sin perder estado
+Archivo: build/navigation-moving.log
+00:00 +0: loading C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/navigation_test.dart
+NAVIGATION_EMULATOR catalog=95308 before=616.481586157376 after=0.0; injected movement; panZoom=24; originalRoutePreserved=true
+00:29 +1: All tests passed!
+Archivo: build/navigation-theme-final.log
+00:19 +1: All tests passed!

@@ -1,0 +1,1 @@
+MP4 H.264 grabado desde el APK final en emulator-5554. Duracion: 112.748044 s. Resolucion: 540x1212. Chrome local decodifico tres fotogramas en 28.187011, 56.374022 y 84.561033 s; imagenes inspeccionadas visualmente. Sin subida de archivos. PDF: ocho paginas renderizadas por PdfRenderer; primera y ultima inspeccionadas.

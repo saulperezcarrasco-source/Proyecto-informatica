@@ -1,0 +1,15 @@
+{
+    "version":  "0.1.0",
+    "isDemo":  false,
+    "bounds":  {
+                   "north":  18.478,
+                   "south":  18.47,
+                   "west":  -69.89,
+                   "east":  -69.88
+               },
+    "name":  "Ciudad Colonial",
+    "source":  "https://api.openstreetmap.org/api/0.6/map?bbox=-69.8900,18.4700,-69.8800,18.4780",
+    "id":  "zona_piloto",
+    "attribution":  "© OpenStreetMap contributors · ODbL 1.0",
+    "generatedAt":  "2026-11-19T00:00:00Z"
+}

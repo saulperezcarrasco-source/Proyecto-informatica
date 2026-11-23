@@ -1,0 +1,2 @@
+NATIONAL_DATA validated: records= 95118 ; outside RD= 0 ; unique IDs=true; SHA256 matches manifest
+LABEL_INTERIOR vertices= 82 ; subset RD=true; exact border fallback; minimum margin degrees= 0.012116673159110254

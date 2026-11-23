@@ -1,0 +1,21 @@
+{
+  "mode": "motorcar",
+  "format": "RDI2 little-endian gzip",
+  "nodes": 1488151,
+  "directedEdges": 3127053,
+  "prohibitedTurns": 221,
+  "avoidedViaWays": 32,
+  "bytes": 22369510,
+  "sha256": "efbefaee3a4cca7aa1200d6bb728b33352284c0db7f5b9d12ae83ece5f7daa38",
+  "sourceSha256": "649b91a2e737e6d6f1b7588eb598d88e4e262f1cce3119a9b97dadf5172734f6",
+  "dataDate": "2026-11-18",
+  "attribution": "OpenStreetMap contributors, ODbL 1.0",
+  "policy": "Mode-specific access, barriers and oneway; full node/edge national clipping; node-via turn restrictions; complex via-way restrictions avoided. Shortest distance, not traffic-aware fastest route. Time-dependent/reversible direction ways omitted. Bicycles on motorroad require explicit permission.",
+  "limitations": "Conditional access ways excluded; conditional turn restrictions applied conservatively at all times. Destination/private access excluded. OSM may be incomplete. Not field verified; no traffic or live closures.",
+  "temporalFilterRevision": 1,
+  "temporallyFilteredEdges": 14,
+  "avoidedTimeDependentWays": [
+    28245635,
+    28245679
+  ]
+}

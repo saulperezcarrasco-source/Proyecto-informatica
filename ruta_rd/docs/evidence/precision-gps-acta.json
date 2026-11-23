@@ -1,0 +1,10 @@
+{
+    "device":  "emulator-5554",
+    "position":  "Android emulator GNSS injected; no physical GPS",
+    "mode":  "release universal",
+    "offline":  true,
+    "beforeMeters":  189,
+    "middleMeters":  105,
+    "arrivalMeters":  0,
+    "utc":  "2026-11-21T00:49:53.5926959Z"
+}

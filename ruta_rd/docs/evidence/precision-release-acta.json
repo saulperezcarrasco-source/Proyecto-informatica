@@ -1,0 +1,16 @@
+{
+    "version":  "1.2.0-demo+5",
+    "device":  "emulator-5554",
+    "mode":  "normal release universal",
+    "searches":  [
+                     "monumento de santiago",
+                     "Sirena Santiago",
+                     "Salto El Limon",
+                     "Puerto Plata"
+                 ],
+    "paintedMonument":  true,
+    "routeCalculated":  true,
+    "distance":  "57.5 km · 767 min aprox. sobre calles",
+    "oldFooterRemoved":  true,
+    "utc":  "2026-11-21T00:51:15.6400781Z"
+}

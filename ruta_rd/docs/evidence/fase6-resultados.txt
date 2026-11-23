@@ -1,0 +1,23 @@
+﻿00:05 +30: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/island_routing_test.dart: rutas de RD usan solo aristas OSM y permanecen dentro del país
+00:05 +31: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/island_routing_test.dart: rutas de RD usan solo aristas OSM y permanecen dentro del país
+00:05 +32: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/island_routing_test.dart: rutas de RD usan solo aristas OSM y permanecen dentro del país
+00:06 +33: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/island_routing_test.dart: rutas de RD usan solo aristas OSM y permanecen dentro del país
+ISLAND_ROUTE 19.4517,-70.697 -> 19.793,-70.688: 56808 m, 1508 vertices, 418 ms; approaches 15/47 m
+ISLAND_ROUTE 18.4861,-69.9312 -> 18.582,-68.405: 186712 m, 2489 vertices, 633 ms; approaches 41/11 m
+ISLAND_ROUTE 18.2085,-71.1008 -> 18.4861,-69.9312: 192493 m, 3034 vertices, 582 ms; approaches 13/41 m
+ISLAND_ROUTE 19.54878,-71.70829 -> 19.4517,-70.697: 130284 m, 2342 vertices, 499 ms; approaches 9/15 m
+ISLAND_ROUTE 19.793,-70.688 -> 19.4517,-70.697: 56808 m, 1508 vertices, 309 ms; approaches 47/15 m
+ISLAND_ROUTE 18.582,-68.405 -> 18.4861,-69.9312: 186712 m, 2489 vertices, 680 ms; approaches 11/41 m
+ISLAND_ROUTE 18.4861,-69.9312 -> 18.2085,-71.1008: 192493 m, 3034 vertices, 710 ms; approaches 41/13 m
+ISLAND_ROUTE 19.4517,-70.697 -> 19.54878,-71.70829: 130284 m, 2342 vertices, 519 ms; approaches 15/9 m
+00:07 +34: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/widget_test.dart: el punto aparece en el primer frame sin mover ni recrear el mapa
+00:07 +35: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/widget_test.dart: el punto aparece en el primer frame sin mover ni recrear el mapa
+00:07 +36: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/island_routing_test.dart: par 10: desconexión real y recuperación con los mismos datos
+ACCEPTANCE_DISCONNECTED 19.4517,-70.697 -> 19.4009853,-70.6321272; recovered=true
+00:07 +37: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/island_routing_test.dart: (tearDownAll)
+00:07 +37: All tests passed!
+Installing build\app\outputs\flutter-apk\app-debug.apk...           5.3s
+00:00 +0: MVP: cargar, GPS rechazado, buscar, elegir, ruta y limpiar
+MVP_SEARCH_ROUTE distance=166.18774111416843 elapsedMs=47.081
+00:56 +1: (tearDownAll)
+00:56 +1: All tests passed!

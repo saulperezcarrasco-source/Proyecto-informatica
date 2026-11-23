@@ -1,0 +1,13 @@
+﻿{
+    "codeCommit":  "a3307f4302afa9e8a7ea35fa62dc84316ec00d9c",
+    "branch":  "feat/favorites",
+    "mode":  "release; demostracion x64",
+    "apk":  "C:\\Users\\Dell\\Desktop\\Proyecto-informatica\\.worktrees\\favorites\\ruta_rd\\build\\app\\outputs\\flutter-apk\\app-release.apk",
+    "bytes":  102886363,
+    "sha256":  "41bd067bc8ce0e957865de25c6f591416d47705733d16dae333a1a25ba0e4635",
+    "installedSha256":  "41bd067bc8ce0e957865de25c6f591416d47705733d16dae333a1a25ba0e4635",
+    "device":  "emulator-5554",
+    "favoritesAfterForceStop":  1,
+    "offline":  true,
+    "utc":  "2026-11-20T05:38:18.7369491Z"
+}

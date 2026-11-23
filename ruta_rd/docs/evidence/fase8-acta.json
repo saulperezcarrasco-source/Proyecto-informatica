@@ -1,0 +1,15 @@
+﻿{
+    "apkSha256":  "ce9fc0271fcffb0b51b0c7d4c4e3d0d693ae8ee210dc53670c67d96a18e8316b",
+    "device":  "emulator-5554",
+    "cleanData":  true,
+    "airplaneMode":  1,
+    "wifi":  0,
+    "mobileData":  0,
+    "routeMetersDisplayed":  166,
+    "favoritesSaved":  2,
+    "favoritesAfterReopen":  2,
+    "favoritesAfterRemoval":  1,
+    "gps":  "native permission denied; manual route preserved",
+    "theme":  "dark persisted after force stop",
+    "utc":  "2026-11-20T06:34:13.8098250Z"
+}

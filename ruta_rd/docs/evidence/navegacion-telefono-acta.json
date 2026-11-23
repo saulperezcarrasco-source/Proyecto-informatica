@@ -1,0 +1,15 @@
+{
+    "device":  "T-Mobile REVVL 7 TMRV075G",
+    "android":  16,
+    "mode":  "normal release universal",
+    "version":  "1.1.0-demo+4",
+    "searches":  [
+                     "Puerto Plata",
+                     "Santiago"
+                 ],
+    "routeCalculated":  true,
+    "summary":  "59065 m · 788 min aprox. sobre calles",
+    "dataCleared":  false,
+    "gpsQueried":  false,
+    "utc":  "2026-11-20T21:58:18.3812485Z"
+}

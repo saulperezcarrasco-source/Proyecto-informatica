@@ -33,6 +33,7 @@ android/.kotlin/
 .pub/
 /build/
 /coverage/
+/entregables/
 
 # Symbolication related
 app.*.symbols
@@ -47,3 +48,15 @@ app.*.map.json
 
 # Widget Preview related
 .widget_preview/
+tools/national_map/cli/
+tools/national_map/pmtiles.zip
+tools/national_map/builds.html
+tools/national_map/builds.js
+tools/island_routing/python/
+tools/island_routing/python.zip
+tools/island_routing/get-pip.py
+tools/island_routing/source.osm.pbf
+tools/island_routing/__pycache__/
+tools/island_routing/cache/
+tools/dominican_region/boundary.osm
+tools/dominican_region/__pycache__/

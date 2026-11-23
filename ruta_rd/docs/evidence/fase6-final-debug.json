@@ -1,0 +1,43 @@
+﻿{
+    "commit":  "36310c949af2027765a82bfcd4c87dd28324294e",
+    "apk":  "C:\\Users\\Dell\\Desktop\\Proyecto-informatica\\ruta_rd\\build\\qa\\36310c9\\emulator-5554-debug\\20261120-045100Z\\ruta-rd-PRUEBAS-debug-36310c9.apk",
+    "mode":  "debug; SOLO PRUEBAS",
+    "targetPlatform":  "android-x64",
+    "sha256":  "85f227b7f1ae631d5f8606a263c5db057c377cc43ec6dda9941e56251429d0dd",
+    "installedSha256":  "85f227b7f1ae631d5f8606a263c5db057c377cc43ec6dda9941e56251429d0dd",
+    "bytes":  249294941,
+    "device":  "emulator-5554",
+    "model":  "sdk_gphone16k_x86_64",
+    "android":  "17",
+    "wifiOn":  "0",
+    "mobileData":  "0",
+    "cleanData":  true,
+    "firstStart":  [
+                       "Stopping: com.example.ruta_rd",
+                       "Starting: Intent { flg=0x10008000 cmp=com.example.ruta_rd/.MainActivity }",
+                       "Status: ok",
+                       "LaunchState: COLD",
+                       "Activity: com.example.ruta_rd/.MainActivity",
+                       "TotalTime: 9623",
+                       "WaitTime: 9627",
+                       "Complete"
+                   ],
+    "reopen":  [
+                   "Stopping: com.example.ruta_rd",
+                   "Starting: Intent { flg=0x10008000 cmp=com.example.ruta_rd/.MainActivity }",
+                   "Status: ok",
+                   "LaunchState: COLD",
+                   "Activity: com.example.ruta_rd/.MainActivity",
+                   "TotalTime: 8780",
+                   "WaitTime: 8785",
+                   "Complete"
+               ],
+    "firstScreenshotAfterMs":  22004,
+    "timingNote":  "am start mide actividad, no mapa listo. La captura requiere revision visual.",
+    "privateFiles":  [
+                         "total 57120",
+                         "-rw------- 1 u0_a247 u0_a247       24 2026-11-20 04:51 profileInstalled",
+                         "-rw------- 1 u0_a247 u0_a247 58474685 2026-11-20 04:51 rd-20261118-v2.pmtiles"
+                     ],
+    "utc":  "2026-11-20T04:52:26.7864053Z"
+}

@@ -1,0 +1,14 @@
+[
+    {
+        "apkSha256":  "515b2efa0789d2df00acef6db741f2f68d04659ed3404e2381606232dfa747a9",
+        "running":  true,
+        "device":  "Pixel_10a Android 17 API37",
+        "flutterRuntimeErrors":  ""
+    },
+    {
+        "apkSha256":  "515b2efa0789d2df00acef6db741f2f68d04659ed3404e2381606232dfa747a9",
+        "running":  true,
+        "device":  "REVVL 7 Android 16 API36",
+        "flutterRuntimeErrors":  ""
+    }
+]

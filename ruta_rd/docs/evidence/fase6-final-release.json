@@ -1,0 +1,39 @@
+﻿{
+    "commit":  "36310c949af2027765a82bfcd4c87dd28324294e",
+    "apk":  "C:\\Users\\Dell\\Desktop\\Proyecto-informatica\\ruta_rd\\build\\qa\\36310c9\\emulator-5554-release\\20261120-045237Z\\ruta-rd-PRUEBAS-release-36310c9.apk",
+    "mode":  "release; SOLO PRUEBAS",
+    "targetPlatform":  "android-x64",
+    "sha256":  "fc669acf7468957ac597c49aeef3a669cec496c3c81fafc9578d9670c7ff9226",
+    "installedSha256":  "fc669acf7468957ac597c49aeef3a669cec496c3c81fafc9578d9670c7ff9226",
+    "bytes":  102755039,
+    "device":  "emulator-5554",
+    "model":  "sdk_gphone16k_x86_64",
+    "android":  "17",
+    "wifiOn":  "0",
+    "mobileData":  "0",
+    "cleanData":  true,
+    "firstStart":  [
+                       "Stopping: com.example.ruta_rd",
+                       "Starting: Intent { flg=0x10008000 cmp=com.example.ruta_rd/.MainActivity }",
+                       "Status: ok",
+                       "LaunchState: COLD",
+                       "Activity: com.example.ruta_rd/.MainActivity",
+                       "TotalTime: 1360",
+                       "WaitTime: 1377",
+                       "Complete"
+                   ],
+    "reopen":  [
+                   "Stopping: com.example.ruta_rd",
+                   "Starting: Intent { flg=0x10008000 cmp=com.example.ruta_rd/.MainActivity }",
+                   "Status: ok",
+                   "LaunchState: COLD",
+                   "Activity: com.example.ruta_rd/.MainActivity",
+                   "TotalTime: 1457",
+                   "WaitTime: 1466",
+                   "Complete"
+               ],
+    "firstScreenshotAfterMs":  13785,
+    "timingNote":  "am start mide actividad, no mapa listo. La captura requiere revision visual.",
+    "privateFiles":  "Directorio privado no inspeccionado en APK optimizado.",
+    "utc":  "2026-11-20T04:53:39.2686137Z"
+}

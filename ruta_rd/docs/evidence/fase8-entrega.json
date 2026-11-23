@@ -1,0 +1,51 @@
+{
+    "version":  "1.0.0-demo",
+    "versionCode":  2,
+    "codeCommit":  "29773b09250930b2805e5ff9fb69ddf998995d7d",
+    "target":  "android-x64",
+    "signing":  "Android Debug; APK de demostracion, no publicacion Google Play",
+    "device":  "Pixel_10a / emulator-5554 / Android 17 API 37",
+    "flutter":  {
+                    "frameworkVersion":  "3.50.0",
+                    "channel":  "stable",
+                    "repositoryUrl":  "https://github.com/flutter/flutter.git",
+                    "frameworkRevision":  "ab2912035e160d9cad6306df307576da6128ebdb",
+                    "frameworkCommitDate":  "2026-11-09 08:50:21 -0800",
+                    "engineRevision":  "371f77202a73e8dff57a8b3bff75bca55c090aee",
+                    "engineCommitDate":  "2026-11-09 15:57:36.000Z",
+                    "engineContentHash":  "bf601093ad255aaf5c6d0fc5c4f9acfa60943b2a",
+                    "engineBuildDate":  "2026-11-09 12:33:19.494",
+                    "dartSdkVersion":  "3.14.0",
+                    "devToolsVersion":  "2.61.0",
+                    "flutterVersion":  "3.50.0",
+                    "flutterRoot":  "C:\\src\\flutter"
+                },
+    "artifacts":  [
+                      {
+                          "sha256":  "ce9fc0271fcffb0b51b0c7d4c4e3d0d693ae8ee210dc53670c67d96a18e8316b",
+                          "file":  "ruta-rd-v1.0.0-demo-android-x64.apk",
+                          "bytes":  102886359
+                      },
+                      {
+                          "sha256":  "ce024c734ce7560501574b6e470154732d89ac00fc17ba3a70809049a56cec9f",
+                          "file":  "fuentes-v1.0.0-demo.zip",
+                          "bytes":  91117679
+                      },
+                      {
+                          "sha256":  "d33a6aad9aee05b5a70ab2667448dd175ea9c5adda2016945948befadf536d8d",
+                          "file":  "respaldo.mp4",
+                          "bytes":  3715989
+                      },
+                      {
+                          "sha256":  "aef74e91d7697dd94d11b9826b2d040cb2d46da054e8ad4a3317fa782cb86fde",
+                          "file":  "PRESENTACION.html",
+                          "bytes":  7313
+                      },
+                      {
+                          "sha256":  "608d1dc324843431563a76542197611d631946303b8da5377db9adc7afb5aafb",
+                          "file":  "PRESENTACION.pdf",
+                          "bytes":  73670
+                      }
+                  ],
+    "utc":  "2026-11-20T06:39:07.0889403Z"
+}

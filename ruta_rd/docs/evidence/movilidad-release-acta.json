@@ -1,0 +1,30 @@
+{
+    "version":  "1.3.0-demo+6",
+    "device":  "emulator-5554",
+    "mode":  "normal universal release",
+    "nationalModes":  [
+                          {
+                              "summary":  "57.5 km · 767 min aprox. · A pie",
+                              "minutes":  767,
+                              "mode":  "A pie"
+                          },
+                          {
+                              "summary":  "58.7 km · 235 min aprox. · Bici",
+                              "minutes":  235,
+                              "mode":  "Bici"
+                          },
+                          {
+                              "summary":  "58.5 km · 88 min aprox. · Coche",
+                              "minutes":  88,
+                              "mode":  "Coche"
+                          },
+                          {
+                              "summary":  "58.5 km · 101 min aprox. · Moto",
+                              "minutes":  101,
+                              "mode":  "Moto"
+                          }
+                      ],
+    "additionalOsmShops":  true,
+    "darkMode":  true,
+    "utc":  "2026-11-21T02:31:28.8572853Z"
+}

@@ -1,0 +1,14 @@
+{
+    "places":  190,
+    "note":  "No artificial connections. Directed reachability is checked per route.",
+    "weakComponents":  [
+                           413,
+                           8,
+                           6,
+                           5,
+                           4,
+                           3
+                       ],
+    "edges":  1046,
+    "nodes":  439
+}

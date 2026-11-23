@@ -1,0 +1,30 @@
+﻿00:07 +38: C:/Users/Dell/Desktop/Proyecto-informatica/.worktrees/favorites/ruta_rd/test/island_routing_test.dart: rutas de RD usan solo aristas OSM y permanecen dentro del país
+ISLAND_ROUTE 19.4517,-70.697 -> 19.793,-70.688: 56808 m, 1508 vertices, 558 ms; approaches 15/47 m
+ISLAND_ROUTE 18.4861,-69.9312 -> 18.582,-68.405: 186712 m, 2489 vertices, 879 ms; approaches 41/11 m
+ISLAND_ROUTE 18.2085,-71.1008 -> 18.4861,-69.9312: 192493 m, 3034 vertices, 813 ms; approaches 13/41 m
+ISLAND_ROUTE 19.54878,-71.70829 -> 19.4517,-70.697: 130284 m, 2342 vertices, 664 ms; approaches 9/15 m
+ISLAND_ROUTE 19.793,-70.688 -> 19.4517,-70.697: 56808 m, 1508 vertices, 372 ms; approaches 47/15 m
+ISLAND_ROUTE 18.582,-68.405 -> 18.4861,-69.9312: 186712 m, 2489 vertices, 777 ms; approaches 11/41 m
+ISLAND_ROUTE 18.4861,-69.9312 -> 18.2085,-71.1008: 192493 m, 3034 vertices, 904 ms; approaches 41/13 m
+ISLAND_ROUTE 19.4517,-70.697 -> 19.54878,-71.70829: 130284 m, 2342 vertices, 639 ms; approaches 15/9 m
+00:08 +39: C:/Users/Dell/Desktop/Proyecto-informatica/.worktrees/favorites/ruta_rd/test/widget_test.dart: buscar, elegir y limpiar funciona en la pantalla
+00:08 +40: C:/Users/Dell/Desktop/Proyecto-informatica/.worktrees/favorites/ruta_rd/test/widget_test.dart: buscar, elegir y limpiar funciona en la pantalla
+00:08 +40: C:/Users/Dell/Desktop/Proyecto-informatica/.worktrees/favorites/ruta_rd/test/island_routing_test.dart: par 10: desconexión real y recuperación con los mismos datos
+ACCEPTANCE_DISCONNECTED 19.4517,-70.697 -> 19.4009853,-70.6321272; recovered=true
+00:08 +41: C:/Users/Dell/Desktop/Proyecto-informatica/.worktrees/favorites/ruta_rd/test/widget_test.dart: buscar, elegir y limpiar funciona en la pantalla
+00:08 +42: C:/Users/Dell/Desktop/Proyecto-informatica/.worktrees/favorites/ruta_rd/test/widget_test.dart: el punto aparece en el primer frame sin mover ni recrear el mapa
+00:09 +43: C:/Users/Dell/Desktop/Proyecto-informatica/.worktrees/favorites/ruta_rd/test/widget_test.dart: (tearDownAll)
+00:09 +43: All tests passed!
+00:00 +0: loading C:/Users/Dell/Desktop/Proyecto-informatica/.worktrees/favorites/ruta_rd/integration_test/favorites_test.dart
+00:00 +0: C:/Users/Dell/Desktop/Proyecto-informatica/.worktrees/favorites/ruta_rd/integration_test/favorites_test.dart: favoritos offline: guardar dos, reabrir, elegir A/B, quitar sin alterar ruta
+FAVORITES_ANDROID saved=2 reopened=2 removed=1 remaining=1 region=zona_piloto version=0.1.0 routeMeters=166.18774111416843; offline storage
+00:46 +1: C:/Users/Dell/Desktop/Proyecto-informatica/.worktrees/favorites/ruta_rd/integration_test/favorites_test.dart: (tearDownAll)
+00:46 +1: loading C:/Users/Dell/Desktop/Proyecto-informatica/.worktrees/favorites/ruta_rd/integration_test/mvp_acceptance_test.dart
+02:15 +1: C:/Users/Dell/Desktop/Proyecto-informatica/.worktrees/favorites/ruta_rd/integration_test/mvp_acceptance_test.dart: MVP: cargar, GPS rechazado, buscar, elegir, ruta y limpiar
+MVP_SEARCH_ROUTE distance=166.18774111416843 elapsedMs=28.368
+03:07 +2: C:/Users/Dell/Desktop/Proyecto-informatica/.worktrees/favorites/ruta_rd/integration_test/mvp_acceptance_test.dart: (tearDownAll)
+03:07 +2: loading C:/Users/Dell/Desktop/Proyecto-informatica/.worktrees/favorites/ruta_rd/integration_test/island_routing_test.dart
+04:29 +2: C:/Users/Dell/Desktop/Proyecto-informatica/.worktrees/favorites/ruta_rd/integration_test/island_routing_test.dart: ruta automática de RD, puntos inmediatos y exclusión de Haití
+ISLAND_ANDROID distance=130283.86999386549 vertices=2342 elapsedMs=2005.028 approachA=8.758780463728815 approachB=15.164268334136096
+04:53 +3: C:/Users/Dell/Desktop/Proyecto-informatica/.worktrees/favorites/ruta_rd/integration_test/island_routing_test.dart: (tearDownAll)
+04:53 +3: All tests passed!

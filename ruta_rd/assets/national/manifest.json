@@ -1,0 +1,22 @@
+{
+    "name":  "República Dominicana",
+    "bounds":  {
+                   "south":  17.3,
+                   "west":  -72.05,
+                   "north":  20.1,
+                   "east":  -68.2
+               },
+    "source":  "https://build.protomaps.com/20261118.pmtiles",
+    "dataTimestamp":  "2026-11-18T04:00:00Z",
+    "tilesetVersion":  "4.15.2",
+    "styleVersion":  "5.7.2",
+    "styleChanges":  "Higher contrast night labels; external fonts and sprites removed for offline use",
+    "format":  "PMTiles v3 MVT gzip",
+    "minZoom":  0,
+    "maxZoom":  15,
+    "bytes":  58474685,
+    "sha256":  "149c83987ccee75ac8c3763033f9d90190f502b6f6b6addeee70aeb4d6e386df",
+    "attribution":  "© OpenStreetMap contributors, Protomaps, Natural Earth",
+    "license":  "ODbL 1.0 (OSM); Natural Earth public domain; style license in STYLE-LICENSE.txt",
+    "notice":  "Mapa y selección limitados a República Dominicana. Rutas peatonales offline, búsqueda nacional de nombres OSM y navegación GPS en primer plano. Frontera y grafo originales conservados; etiquetas interiores y máscara fuera de pantalla optimizadas."
+}

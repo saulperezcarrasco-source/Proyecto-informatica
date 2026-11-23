@@ -1,0 +1,148 @@
+﻿{
+    "liveEndpointsChecked":  10,
+    "graphNodesChecked":  439,
+    "directedEdgesChecked":  1046,
+    "utc":  "2026-11-20T05:14:46.5190710Z",
+    "placesChecked":  190,
+    "limits":  "Revision de fuente y conectividad; no certifica seguridad, accesibilidad ni condiciones en terreno",
+    "livePlaces":  [
+                       {
+                           "id":  "2020747192",
+                           "version":  "4",
+                           "coordinate":  {
+                                              "lat":  18.4737075,
+                                              "lon":  -69.8844188
+                                          },
+                           "name":  "Café Conde de Peñalba",
+                           "matches":  true,
+                           "url":  "https://www.openstreetmap.org/node/2020747192"
+                       },
+                       {
+                           "id":  "3306069214",
+                           "version":  "1",
+                           "coordinate":  {
+                                              "lat":  18.4737704,
+                                              "lon":  -69.8822927
+                                          },
+                           "name":  "Museo Infantil Trampolín",
+                           "matches":  true,
+                           "url":  "https://www.openstreetmap.org/node/3306069214"
+                       },
+                       {
+                           "id":  "7222791985",
+                           "version":  "1",
+                           "coordinate":  {
+                                              "lat":  18.4731347,
+                                              "lon":  -69.8863343
+                                          },
+                           "name":  "Café Santo Domingo",
+                           "matches":  true,
+                           "url":  "https://www.openstreetmap.org/node/7222791985"
+                       },
+                       {
+                           "id":  "7241829266",
+                           "version":  "1",
+                           "coordinate":  {
+                                              "lat":  18.4731326,
+                                              "lon":  -69.8862904
+                                          },
+                           "name":  "Café La Moricette",
+                           "matches":  true,
+                           "url":  "https://www.openstreetmap.org/node/7241829266"
+                       },
+                       {
+                           "id":  "11049698105",
+                           "version":  "1",
+                           "coordinate":  {
+                                              "lat":  18.4768277,
+                                              "lon":  -69.8872529
+                                          },
+                           "name":  "Cafeteria Sabor Real",
+                           "matches":  true,
+                           "url":  "https://www.openstreetmap.org/node/11049698105"
+                       }
+                   ],
+    "sourceSha256":  "b82a498f46a06d7266dea30c68a0918b0da69ad7030cee15ea413eb18051f23a",
+    "result":  "Todas las comparaciones coinciden con OSM",
+    "liveConnections":  [
+                            {
+                                "version":  "24",
+                                "tags":  {
+                                             "lanes":  "4",
+                                             "name":  "Avenida Presidente Coronel Francisco Alberto Caamaño Deñó / Avenida del Puerto",
+                                             "ref":  "RD-2",
+                                             "highway":  "primary",
+                                             "oneway":  "no",
+                                             "alt_name":  "Avenida del Puerto",
+                                             "surface":  "asphalt"
+                                         },
+                                "to":  "307657457",
+                                "from":  "307657455",
+                                "matches":  true,
+                                "way":  "28017889",
+                                "url":  "https://www.openstreetmap.org/way/28017889"
+                            },
+                            {
+                                "version":  "34",
+                                "tags":  {
+                                             "lanes":  "2",
+                                             "name":  "Avenida Presidente Coronel Francisco Alberto Caamaño Deñó / Avenida del Puerto",
+                                             "ref":  "RD-2",
+                                             "highway":  "primary",
+                                             "oneway":  "yes",
+                                             "alt_name":  "Avenida del Puerto",
+                                             "surface":  "asphalt"
+                                         },
+                                "to":  "307657402",
+                                "from":  "307657398",
+                                "matches":  true,
+                                "way":  "28017891",
+                                "url":  "https://www.openstreetmap.org/way/28017891"
+                            },
+                            {
+                                "version":  "13",
+                                "tags":  {
+                                             "wikipedia":  "en:Spain Square (Santo Domingo)",
+                                             "highway":  "pedestrian",
+                                             "name":  "Plaza de la Hispanidad",
+                                             "wikidata":  "Q100507890",
+                                             "area":  "yes",
+                                             "surface":  "paving_stones",
+                                             "lit":  "yes"
+                                         },
+                                "to":  "308686880",
+                                "from":  "2670678811",
+                                "matches":  true,
+                                "way":  "28101420",
+                                "url":  "https://www.openstreetmap.org/way/28101420"
+                            },
+                            {
+                                "version":  "30",
+                                "tags":  {
+                                             "surface":  "paving_stones",
+                                             "highway":  "residential",
+                                             "name":  "Calle Isabel La Católica",
+                                             "oneway":  "yes"
+                                         },
+                                "to":  "308695427",
+                                "from":  "308695004",
+                                "matches":  true,
+                                "way":  "28101949",
+                                "url":  "https://www.openstreetmap.org/way/28101949"
+                            },
+                            {
+                                "version":  "22",
+                                "tags":  {
+                                             "surface":  "asphalt",
+                                             "highway":  "residential",
+                                             "name":  "Calle Hostos",
+                                             "oneway":  "yes"
+                                         },
+                                "to":  "308742597",
+                                "from":  "4088565482",
+                                "matches":  true,
+                                "way":  "28101951",
+                                "url":  "https://www.openstreetmap.org/way/28101951"
+                            }
+                        ]
+}

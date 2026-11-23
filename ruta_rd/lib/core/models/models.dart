@@ -1,3 +1,5 @@
+import '../travel_mode.dart';
+
 /// Coordenadas geográficas en grados decimales.
 class Coordinate {
   const Coordinate({required this.lat, required this.lon});
@@ -73,8 +75,10 @@ class RouteResult {
     required this.estimatedMinutes,
     required this.originApproachMeters,
     required this.destinationApproachMeters,
+    this.mode = TravelMode.walking,
   });
   final List<Coordinate> coordinates;
+  final TravelMode mode;
   final double distanceMeters,
       estimatedMinutes,
       originApproachMeters,

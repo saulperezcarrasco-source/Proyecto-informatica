@@ -1,0 +1,53 @@
+﻿00:06 +30: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/island_routing_test.dart: rutas de RD usan solo aristas OSM y permanecen dentro del país
+00:06 +31: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/island_routing_test.dart: rutas de RD usan solo aristas OSM y permanecen dentro del país
+00:06 +32: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/island_routing_test.dart: rutas de RD usan solo aristas OSM y permanecen dentro del país
+00:08 +33: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/island_routing_test.dart: rutas de RD usan solo aristas OSM y permanecen dentro del país
+00:09 +34: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/island_routing_test.dart: rutas de RD usan solo aristas OSM y permanecen dentro del país
+ISLAND_ROUTE 19.4517,-70.697 -> 19.793,-70.688: 56808 m, 1508 vertices, 560 ms; approaches 15/47 m
+ISLAND_ROUTE 18.4861,-69.9312 -> 18.582,-68.405: 186712 m, 2489 vertices, 966 ms; approaches 41/11 m
+ISLAND_ROUTE 18.2085,-71.1008 -> 18.4861,-69.9312: 192493 m, 3034 vertices, 851 ms; approaches 13/41 m
+ISLAND_ROUTE 19.54878,-71.70829 -> 19.4517,-70.697: 130284 m, 2342 vertices, 686 ms; approaches 9/15 m
+ISLAND_ROUTE 19.793,-70.688 -> 19.4517,-70.697: 56808 m, 1508 vertices, 418 ms; approaches 47/15 m
+ISLAND_ROUTE 18.582,-68.405 -> 18.4861,-69.9312: 186712 m, 2489 vertices, 752 ms; approaches 11/41 m
+ISLAND_ROUTE 18.4861,-69.9312 -> 18.2085,-71.1008: 192493 m, 3034 vertices, 1013 ms; approaches 41/13 m
+ISLAND_ROUTE 19.4517,-70.697 -> 19.54878,-71.70829: 130284 m, 2342 vertices, 714 ms; approaches 15/9 m
+00:09 +35: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/island_routing_test.dart: rechaza Haití dentro del encuadre
+00:09 +36: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/island_routing_test.dart: par 10: desconexión real y recuperación con los mismos datos
+ACCEPTANCE_DISCONNECTED 19.4517,-70.697 -> 19.4009853,-70.6321272; recovered=true
+00:09 +37: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/island_routing_test.dart: (tearDownAll)
+00:09 +37: All tests passed!
+00:00 +0: loading C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/mvp_acceptance_test.dart
+00:00 +0: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/mvp_acceptance_test.dart: MVP: cargar, GPS rechazado, buscar, elegir, ruta y limpiar
+MVP_SEARCH_ROUTE distance=166.18774111416843 elapsedMs=32.489
+00:47 +1: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/mvp_acceptance_test.dart: (tearDownAll)
+00:47 +1: loading C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/island_routing_test.dart
+02:12 +1: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/island_routing_test.dart: ruta automática de RD, puntos inmediatos y exclusión de Haití
+ISLAND_ANDROID distance=130283.86999386549 vertices=2342 elapsedMs=1584.989 approachA=8.758780463728815 approachB=15.164268334136096
+02:31 +2: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/island_routing_test.dart: (tearDownAll)
+02:32 +2: loading C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/theme_national_test.dart
+03:55 +2: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/theme_national_test.dart: tema persistente y mapa nacional con archivo local
+04:28 +3: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/theme_national_test.dart: (tearDownAll)
+04:28 +3: loading C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/search_selection_test.dart
+05:51 +3: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/search_selection_test.dart: buscar elegir limpiar y seleccionar mapa sin GPS
+06:28 +4: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/search_selection_test.dart: (tearDownAll)
+06:28 +4: loading C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/routing_test.dart
+07:49 +4: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/routing_test.dart: rutas locales, resumen, cambio de destino y limpieza
+ROUTING_MEASUREMENTS [{"from":"Café Conde de Peñalba","to":"Café La Moricette","distanceMeters":166.18774111416843,"durationMs":15.465},{"from":"Café La Moricette","to":"Cafeteria Sabor Real","distanceMeters":440.51668269539937,"durationMs":1.902},{"from":"Cafeteria Sabor Real","to":"Café Conde de Peñalba","distanceMeters":597.6567812415227,"durationMs":3.858}]
+09:16 +5: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/routing_test.dart: (tearDownAll)
+09:17 +5: All tests passed!
+00:00 +0: loading C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/gps_native_test.dart
+00:00 +0: GPS Android nativo: denied y selección manual operativa
+NATIVE_GPS denied manualRoute=597.6567812415227
+00:29 +1: (tearDownAll)
+00:29 +1: All tests passed!
+00:00 +0: loading C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/gps_native_test.dart
+00:00 +0: GPS Android nativo: disabled y selección manual operativa
+NATIVE_GPS disabled manualRoute=597.6567812415227
+00:44 +1: (tearDownAll)
+00:45 +1: All tests passed!
+00:00 +0: loading C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/integration_test/gps_native_test.dart
+00:00 +0: GPS Android nativo: success y selección manual operativa
+NATIVE_GPS success accuracy=5.0 approximate=false; emulator injected position
+NATIVE_GPS success manualRoute=597.6567812415227
+00:52 +1: (tearDownAll)
+00:52 +1: All tests passed!

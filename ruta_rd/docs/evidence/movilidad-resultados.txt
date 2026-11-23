@@ -1,0 +1,66 @@
+Final source APK code commit: 74b0819e56356518a13792d4920800eba7409d36
+
+Analyzing ruta_rd...                                            
+No issues found! (ran in 6.0s)
+
+00:13 +63: C:/Users/Dell/Desktop/Proyecto-informatica/ruta_rd/test/widget_test.dart: (tearDownAll)
+00:13 +63: All tests passed!
+
+python.exe : ....
+En línea: 2 Carácter: 1
++ & tools/island_routing/python/python.exe tools/dominican_region/test_ ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (....:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+----------------------------------------------------------------------
+Ran 4 tests in 0.000s
+
+OK
+
+AOT four profiles (before temporal data filter):
+C:\Users\Dell\Desktop\Proyecto-informatica\ruta_rd\android>set CMD_LINE_ARGS=-q -Ptarget-platform=android-x64 -Ptarget=integration_test/mobility_test.dart -Pbase-application-name=android.app.Application -Pdart-defines=RkxVVFRFUl9CVUlMRF9OQU1FPTEuMy4wLWRlbW8=,RkxVVFRFUl9CVUlMRF9OVU1CRVI9Ng==,RkxVVFRFUl9WRVJTSU9OPTMuNTAuMA==,RkxVVFRFUl9DSEFOTkVMPXN0YWJsZQ==,RkxVVFRFUl9HSVRfVVJMPWh0dHBzOi8vZ2l0aHViLmNvbS9mbHV0dGVyL2ZsdXR0ZXIuZ2l0,RkxVVFRFUl9GUkFNRVdPUktfUkVWSVNJT049YWIyOTEyMDM1ZQ==,RkxVVFRFUl9FTkdJTkVfUkVWSVNJT049MzcxZjc3MjAyYQ==,RkxVVFRFUl9EQVJUX1ZFUlNJT049My4xNC4w -Pdart-obfuscation=false -Ptrack-widget-creation=true -Ptree-shake-icons=false -Penable-hcpp=false -Pflutter.androidSdkRoot=C:\Users\Dell\AppData\Local\Android\sdk -Pflutter.installedNdkVersions=28.2.13676358 -Pflutter.sdkManagerPath=C:\Users\Dell\AppData\Local\Android\sdk\cmdline-tools\latest\bin\sdkmanager.bat assembleProfile 
+C:\Users\Dell\Desktop\Proyecto-informatica\ruta_rd\android>"C:\Program Files\Android\Android Studio\jbr/bin/java.exe"   --enable-native-access=ALL-UNNAMED "-Dorg.gradle.appname=gradlew" -classpath "C:\Users\Dell\Desktop\Proyecto-informatica\ruta_rd\android\\gradle\wrapper\gradle-wrapper.jar" org.gradle.wrapper.GradleWrapperMain -q -Ptarget-platform=android-x64 -Ptarget=integration_test/mobility_test.dart -Pbase-application-name=android.app.Application -Pdart-defines=RkxVVFRFUl9CVUlMRF9OQU1FPTEuMy4wLWRlbW8=,RkxVVFRFUl9CVUlMRF9OVU1CRVI9Ng==,RkxVVFRFUl9WRVJTSU9OPTMuNTAuMA==,RkxVVFRFUl9DSEFOTkVMPXN0YWJsZQ==,RkxVVFRFUl9HSVRfVVJMPWh0dHBzOi8vZ2l0aHViLmNvbS9mbHV0dGVyL2ZsdXR0ZXIuZ2l0,RkxVVFRFUl9GUkFNRVdPUktfUkVWSVNJT049YWIyOTEyMDM1ZQ==,RkxVVFRFUl9FTkdJTkVfUkVWSVNJT049MzcxZjc3MjAyYQ==,RkxVVFRFUl9EQVJUX1ZFUlNJT049My4xNC4w -Pdart-obfuscation=false -Ptrack-widget-creation=true -Ptree-shake-icons=false -Penable-hcpp=false -Pflutter.androidSdkRoot=C:\Users\Dell\AppData\Local\Android\sdk -Pflutter.installedNdkVersions=28.2.13676358 -Pflutter.sdkManagerPath=C:\Users\Dell\AppData\Local\Android\sdk\cmdline-tools\latest\bin\sdkmanager.bat assembleProfile 
+I/flutter ( 3849): MOBILITY_ROUTE walking: 56808.110042870045 m, 757.4414672382673 min, 1508 vertices, calcMs=709.21
+I/flutter ( 3849): MOBILITY_ROUTE bicycle: 57764.79001438618 m, 231.05916005754472 min, 1584 vertices, calcMs=629.524
+I/flutter ( 3849): MOBILITY_ROUTE car: 57764.79001438618 m, 86.64718502157928 min, 1584 vertices, calcMs=596.707
+I/flutter ( 3849): MOBILITY_ROUTE motorcycle: 57764.79001438618 m, 99.0253543103763 min, 1584 vertices, calcMs=609.473
+I/flutter ( 3849): MOBILITY_UI PASS catalog=97063; original PNG splash; four modes; unnamed OSM; no map recreation
+I/flutter ( 3849): 00:11 +2: All tests passed!
+All tests passed.
+
+AOT navigation (after temporal data filter; before visual-only splash fix):
+C:\Users\Dell\Desktop\Proyecto-informatica\ruta_rd\android>set CMD_LINE_ARGS=-q -Ptarget-platform=android-x64 -Ptarget=integration_test/navigation_test.dart -Pbase-application-name=android.app.Application -Pdart-defines=RkxVVFRFUl9CVUlMRF9OQU1FPTEuMy4wLWRlbW8=,RkxVVFRFUl9CVUlMRF9OVU1CRVI9Ng==,RkxVVFRFUl9WRVJTSU9OPTMuNTAuMA==,RkxVVFRFUl9DSEFOTkVMPXN0YWJsZQ==,RkxVVFRFUl9HSVRfVVJMPWh0dHBzOi8vZ2l0aHViLmNvbS9mbHV0dGVyL2ZsdXR0ZXIuZ2l0,RkxVVFRFUl9GUkFNRVdPUktfUkVWSVNJT049YWIyOTEyMDM1ZQ==,RkxVVFRFUl9FTkdJTkVfUkVWSVNJT049MzcxZjc3MjAyYQ==,RkxVVFRFUl9EQVJUX1ZFUlNJT049My4xNC4w -Pdart-obfuscation=false -Ptrack-widget-creation=true -Ptree-shake-icons=false -Penable-hcpp=false -Pflutter.androidSdkRoot=C:\Users\Dell\AppData\Local\Android\sdk -Pflutter.installedNdkVersions=28.2.13676358 -Pflutter.sdkManagerPath=C:\Users\Dell\AppData\Local\Android\sdk\cmdline-tools\latest\bin\sdkmanager.bat assembleProfile 
+C:\Users\Dell\Desktop\Proyecto-informatica\ruta_rd\android>"C:\Program Files\Android\Android Studio\jbr/bin/java.exe"   --enable-native-access=ALL-UNNAMED "-Dorg.gradle.appname=gradlew" -classpath "C:\Users\Dell\Desktop\Proyecto-informatica\ruta_rd\android\\gradle\wrapper\gradle-wrapper.jar" org.gradle.wrapper.GradleWrapperMain -q -Ptarget-platform=android-x64 -Ptarget=integration_test/navigation_test.dart -Pbase-application-name=android.app.Application -Pdart-defines=RkxVVFRFUl9CVUlMRF9OQU1FPTEuMy4wLWRlbW8=,RkxVVFRFUl9CVUlMRF9OVU1CRVI9Ng==,RkxVVFRFUl9WRVJTSU9OPTMuNTAuMA==,RkxVVFRFUl9DSEFOTkVMPXN0YWJsZQ==,RkxVVFRFUl9HSVRfVVJMPWh0dHBzOi8vZ2l0aHViLmNvbS9mbHV0dGVyL2ZsdXR0ZXIuZ2l0,RkxVVFRFUl9GUkFNRVdPUktfUkVWSVNJT049YWIyOTEyMDM1ZQ==,RkxVVFRFUl9FTkdJTkVfUkVWSVNJT049MzcxZjc3MjAyYQ==,RkxVVFRFUl9EQVJUX1ZFUlNJT049My4xNC4w -Pdart-obfuscation=false -Ptrack-widget-creation=true -Ptree-shake-icons=false -Penable-hcpp=false -Pflutter.androidSdkRoot=C:\Users\Dell\AppData\Local\Android\sdk -Pflutter.installedNdkVersions=28.2.13676358 -Pflutter.sdkManagerPath=C:\Users\Dell\AppData\Local\Android\sdk\cmdline-tools\latest\bin\sdkmanager.bat assembleProfile 
+I/flutter ( 4330): NATIONAL_LABELS monumentFound=true painted=13 selectedPoi=Busto a Mamoru Matsunaga
+I/flutter ( 4330): NAVIGATION_CAMERA center=LatLng(latitude:18.474898, longitude:-69.886493) zoom=17.0 follow=true arrowWidgets=1
+I/flutter ( 4330): NAVIGATION_PERF mode=profile buildAvgMs=7.0352058823529395 buildP90Ms=9.248 buildOver16=0 rasterAvgMs=12.799058823529409 rasterP90Ms=20.652 frames=68; continuous scheduler; injected positions
+I/flutter ( 4330): NAVIGATION_TEST mode=profile catalog=97063 before=616.481586157376 after=0.0; injected movement; panZoom=120; originalRoutePreserved=true
+I/flutter ( 4330): 00:15 +2: All tests passed!
+All tests passed.
+
+Final filtered graph local regression:
+NATIONAL_MODE bicycle 57765m 231.1min vertices=1584
+NATIONAL_MODE bicycle 57847m 231.4min vertices=1581
+NATIONAL_MODE car 57765m 86.6min vertices=1584
+NATIONAL_MODE car 57847m 86.8min vertices=1581
+NATIONAL_MODE motorcycle 57765m 99.0min vertices=1584
+NATIONAL_MODE motorcycle 57847m 99.2min vertices=1581
+Final normal APK GNSS:
+Success
+Stopping: com.example.ruta_rd
+Starting: Intent { flg=0x10008000 cmp=com.example.ruta_rd/.MainActivity }
+Status: ok
+LaunchState: COLD
+Activity: com.example.ruta_rd/.MainActivity
+TotalTime: 1056
+WaitTime: 1059
+Complete
+PASS native Android LocationManager stream: 189 -> 106 -> 0 m; emulator injected, offline.
+Final normal APK native UI:
+PASS normal release modes: 57.5 km · 767 min aprox. · A pie; 58.7 km · 235 min aprox. · Bici; 58.5 km · 88 min aprox. · Coche; 58.5 km · 101 min aprox. · Moto
+
+Last instruction wording regression:
+00:02 +8: el punto aparece en el primer frame sin mover ni recrear el mapa
+00:02 +9: (tearDownAll)
+00:03 +9: All tests passed!
