@@ -1,5 +1,10 @@
 # Avance
 
+24/11/2026: revisión de continuidad sin cambios de código: emulador arrancado
+en frío, APK 1.4.1-demo+9 reinstalado y prueba nativa de dos campos, rutas,
+selección explícita del mapa y tema repetida con resultado PASS. Aplicación
+normal dejada abierta. Registro en la evidencia de dos campos de búsqueda.
+
 1.4.1-demo+9: dos campos independientes «Elegir origen» / «Elegir destino», con
 «Buscar un lugar» como ejemplo. Se retiran la búsqueda única y las instrucciones
 encima del mapa. Cada resultado se asigna al campo activo; se conservan los

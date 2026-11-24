@@ -41,3 +41,20 @@ Capturas: [inicio](busqueda-doble-inicio.png),
 
 No se modificaron catálogo, grafos ni navegación GPS. Esta actualización se
 valida en emulador, sin afirmar pruebas en un teléfono físico.
+
+## Revisión del 24/11/2026
+
+No quedaron cambios de implementación pendientes de esta entrega. El emulador
+estaba apagado: se inició Pixel_10a en frío y se reinstaló el mismo APK universal
+verificado, conservando sus datos. ActivityManager informó un timeout de apertura
+durante el arranque; después se confirmó visualmente la pantalla y la respuesta
+de los controles, sin cierre de la aplicación.
+
+Se repitió la prueba nativa completa con resultado PASS: dos campos, búsqueda
+con teclado Android, ruta automática, edición de A conservando B, búsqueda sin
+resultados, recálculo, selección de puntos únicamente con el botón activado,
+cambio a coche y cambio de tema. La aplicación normal quedó abierta con ruta
+azul. No se cambió código ni se repitieron las 63 pruebas locales de la misma
+compilación que ya habían pasado el 23/11.
+
+[Captura de la revisión](revision-emulador-2026-11-24.png).
