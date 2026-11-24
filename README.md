@@ -2,7 +2,7 @@
 
 Proyecto escolar Android desarrollado con Flutter. Incluye cartografía local
 de República Dominicana, búsqueda sin conexión y rutas a pie, en bicicleta,
-coche y moto. Versión actual: **1.4.1-demo+9**.
+coche y moto. Versión actual: **1.5.0-demo+10**.
 
 La aplicación está en [`ruta_rd`](ruta_rd). El catálogo y los grafos están
 incluidos en los assets; no necesita un servidor de mapas al ejecutarse.

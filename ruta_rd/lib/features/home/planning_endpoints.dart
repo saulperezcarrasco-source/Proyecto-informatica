@@ -12,11 +12,13 @@ class PlanningEndpoints extends StatelessWidget {
     required this.onSearch,
     required this.onActivate,
     required this.onChooseMap,
+    this.horizontal = false,
   });
   final HomeController controller;
   final TextEditingController originText, destinationText;
   final void Function(Selection, String) onSearch;
   final ValueChanged<Selection> onActivate, onChooseMap;
+  final bool horizontal;
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +75,15 @@ class PlanningEndpoints extends StatelessWidget {
       );
     }
 
+    if (horizontal) {
+      return Row(
+        children: [
+          Expanded(child: field(Selection.origin)),
+          const SizedBox(width: 12),
+          Expanded(child: field(Selection.destination)),
+        ],
+      );
+    }
     return Column(
       children: [
         field(Selection.origin),

@@ -1,6 +1,6 @@
-# Ruta RD Offline 1.4.1-demo — Android universal
+# Ruta RD Offline 1.5.0-demo — Android universal
 
-Usar `ruta-rd-v1.4.1-demo-android-universal.apk` para telefonos Android.
+Usar `ruta-rd-v1.5.0-demo-android-universal.apk` para telefonos Android.
 Incluye ARM de 32 bits, ARM64 y x86_64. El APK anterior marcado android-x64
 es solo para emuladores compatibles y no debe usarse en telefonos ARM.
 Requiere Android 7.0 o posterior (minSdk 24; targetSdk 36 / Android 16).

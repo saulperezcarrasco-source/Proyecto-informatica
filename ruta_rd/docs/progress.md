@@ -1,5 +1,11 @@
 # Avance
 
+1.5.0-demo+10: pantalla de planificación sin desplazamiento global. El mapa usa
+el espacio restante, los resultados se desplazan dentro de un panel acotado y
+la distribución se adapta al teclado, texto grande y orientación horizontal.
+Análisis limpio y 64 pruebas locales aprobadas. Validación de dispositivos en
+[interfaz fija](evidence/interfaz-fija.md).
+
 24/11/2026: revisión de continuidad sin cambios de código: emulador arrancado
 en frío, APK 1.4.1-demo+9 reinstalado y prueba nativa de dos campos, rutas,
 selección explícita del mapa y tema repetida con resultado PASS. Aplicación

@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ruta_rd/features/map/route_endpoint.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:ruta_rd/core/models/models.dart';
 import 'package:ruta_rd/data/region_repository.dart';
@@ -73,11 +74,55 @@ void main() {
           ),
         ),
       );
-      await tester.ensureVisible(find.text('Limpiar'));
+      await tester.ensureVisible(find.byKey(const ValueKey('clear-planning')));
       await tester.pumpAndSettle();
       expect(tester.takeException(), isNull);
+      expect(find.byType(SingleChildScrollView), findsNothing);
+      final map = find.byType(FlutterMap);
+      expect(tester.getBottomRight(map).dy, lessThanOrEqualTo(size.height));
+      expect(tester.getSize(map).height, greaterThan(0));
     });
   }
+  testWidgets(
+    'teclado y resultados mantienen los campos fijos y el mapa dentro de la pantalla',
+    (tester) async {
+      const size = Size(360, 800);
+      await tester.binding.setSurfaceSize(size);
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+      final c = HomeController()
+        ..region = data
+        ..router = RoutingService(data.graph)
+        ..state = RegionState.ready;
+      addTearDown(c.dispose);
+      await tester.pumpWidget(
+        MaterialApp(
+          home: MediaQuery(
+            data: const MediaQueryData(
+              size: size,
+              viewInsets: EdgeInsets.only(bottom: 300),
+              textScaler: TextScaler.linear(1.5),
+            ),
+            child: HomeScreen(controller: c),
+          ),
+        ),
+      );
+      await tester.enterText(
+        find.byKey(const ValueKey('origin-search')),
+        'cafe',
+      );
+      await tester.pumpAndSettle();
+      final field = find.byKey(const ValueKey('origin-search'));
+      final top = tester.getTopLeft(field);
+      final results = find.byKey(const ValueKey('search-results'));
+      expect(results, findsOneWidget);
+      expect(tester.getBottomRight(results).dy, lessThanOrEqualTo(500));
+      await tester.drag(results, const Offset(0, -160));
+      await tester.pumpAndSettle();
+      expect(tester.getTopLeft(field), top);
+      expect(find.byType(SingleChildScrollView), findsNothing);
+      expect(tester.takeException(), isNull);
+    },
+  );
   test('Dijkstra respeta pesos y dirección', () {
     const a = Coordinate(lat: 18.474, lon: -69.885),
         b = Coordinate(lat: 18.4741, lon: -69.885),
@@ -212,7 +257,16 @@ void main() {
       final mapFinder = find.byType(FlutterMap);
       await tester.ensureVisible(mapFinder);
       await tester.pumpAndSettle();
-      await tester.tapAt(tester.getCenter(mapFinder) + const Offset(0, -100));
+      Offset tapPosition() {
+        final camera = tester
+            .widget<FlutterMap>(mapFinder)
+            .mapController!
+            .camera;
+        return tester.getTopLeft(mapFinder) +
+            camera.latLngToScreenOffset(const LatLng(19.54878, -71.70829));
+      }
+
+      await tester.tapAt(tapPosition());
       await tester.pump(const Duration(milliseconds: 400));
       await tester.pumpAndSettle();
       expect(c.origin, isNull);
@@ -226,7 +280,7 @@ void main() {
       expect(tester.getTopLeft(mapFinder), top);
       // The unit environment has no native path_provider, so its repair card
       // covers the center. Tap unobstructed cartography above that card.
-      await tester.tapAt(tester.getCenter(mapFinder) + const Offset(0, -100));
+      await tester.tapAt(tapPosition());
       await tester.pump(const Duration(milliseconds: 16));
       expect(
         c.origin,

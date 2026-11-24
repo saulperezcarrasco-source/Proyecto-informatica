@@ -525,26 +525,36 @@ class _LocalMapState extends State<LocalMap>
                   snapshot.hasError)
                 Align(
                   alignment: Alignment.center,
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Text(
-                            'No se pudo abrir el mapa de RD. Puedes reintentar la carga.',
-                            textAlign: TextAlign.center,
+                  child: widget.height < 220
+                      ? IconButton.filled(
+                          tooltip: 'Reparar mapa de RD',
+                          onPressed: () => setState(
+                            () => national = loadNational(forceCopy: true),
                           ),
-                          TextButton(
-                            onPressed: () => setState(
-                              () => national = loadNational(forceCopy: true),
+                          icon: const Icon(Icons.refresh_rounded),
+                        )
+                      : Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(12),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Text(
+                                  'No se pudo abrir el mapa de RD. Puedes reintentar la carga.',
+                                  textAlign: TextAlign.center,
+                                ),
+                                TextButton(
+                                  onPressed: () => setState(
+                                    () => national = loadNational(
+                                      forceCopy: true,
+                                    ),
+                                  ),
+                                  child: const Text('Reparar mapa de RD'),
+                                ),
+                              ],
                             ),
-                            child: const Text('Reparar mapa de RD'),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
+                        ),
                 ),
               if (widget.navigation == null)
                 Align(

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math' as math;
 
 import 'package:material_ui/material_ui.dart';
 import 'package:geolocator/geolocator.dart';
@@ -12,9 +11,10 @@ import '../../core/map_credits.dart';
 import '../../core/theme_preferences.dart';
 import 'home_controller.dart';
 import 'planning_endpoints.dart';
+import 'home_search_results.dart';
 import '../map/local_map.dart';
 import '../location/location_service.dart';
-import '../favorites/favorite_repository.dart';
+
 import '../favorites/favorites_controller.dart';
 import '../favorites/favorites_panel.dart';
 import '../search/national_search.dart';
@@ -228,100 +228,265 @@ class _HomeScreenState extends State<HomeScreen> {
     TravelMode.motorcycle => Icons.two_wheeler_rounded,
   };
 
+  Widget header(BuildContext context, bool compact) {
+    final c = controller;
+    return Row(
+      children: [
+        Image.asset(
+          'assets/brand/ruta_symbol.png',
+          width: compact ? 24 : 34,
+          height: compact ? 24 : 34,
+          cacheWidth: 102,
+          excludeFromSemantics: true,
+        ),
+        const SizedBox(width: 8),
+        if (!compact)
+          Expanded(
+            child: Text(
+              'Ruta RD',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.titleLarge
+                  ?.copyWith(fontWeight: FontWeight.w700),
+            ),
+          )
+        else
+          const Spacer(),
+        IconButton(
+          tooltip: c.locating ? 'Cancelar GPS' : 'Mi ubicación',
+          onPressed: c.locating ? c.cancelLocation : c.locate,
+          icon: c.locating
+              ? const SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                )
+              : const Icon(Icons.my_location_rounded),
+        ),
+        IconButton(
+          key: const ValueKey('favorites-panel-toggle'),
+          tooltip: 'Favoritos',
+          onPressed: openFavorites,
+          icon: const Icon(Icons.star_border_rounded),
+        ),
+        if (compact)
+          PopupMenuButton<TravelMode>(
+            tooltip: 'Transporte',
+            icon: Icon(modeIcon(c.travelMode)),
+            onSelected: c.setTravelMode,
+            itemBuilder: (_) => [
+              for (final mode in TravelMode.values)
+                PopupMenuItem(
+                  value: mode,
+                  child: Row(
+                    children: [
+                      Icon(modeIcon(mode)),
+                      const SizedBox(width: 12),
+                      Text(mode.label),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+        if (ThemePreferencesScope.of(context) != null)
+          IconButton(
+            tooltip: Theme.of(context).brightness == Brightness.dark
+                ? 'Activar modo claro'
+                : 'Activar modo oscuro',
+            onPressed: () =>
+                ThemePreferencesScope.of(context)!
+                    .toggle(Theme.of(context).brightness),
+            icon: Icon(
+              Theme.of(context).brightness == Brightness.dark
+                  ? Icons.light_mode_outlined
+                  : Icons.dark_mode_outlined,
+            ),
+          ),
+      ],
+    );
+  }
+
+  void clearPlanning() {
+    FocusScope.of(context).unfocus();
+    editingTarget = null;
+    originText.clear();
+    destinationText.clear();
+    controller.clear();
+  }
+
+  Widget actions(BuildContext context, bool compact, {bool more = false}) {
+    final c = controller;
+    final label = c.calculating
+        ? 'Calculando…'
+        : c.route != null
+        ? 'Iniciar navegación'
+        : 'Calcular ruta';
+    return Row(
+      children: [
+        Expanded(
+          child: Tooltip(
+            message: label,
+            child: FilledButton.icon(
+              key: const ValueKey('route-action'),
+              onPressed: c.calculating
+                  ? null
+                  : c.route != null
+                  ? () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => NavigationScreen(home: c),
+                      ),
+                    )
+                  : c.origin != null && c.destination != null
+                  ? c.calculate
+                  : null,
+              icon: Icon(
+                c.route != null
+                    ? Icons.navigation_rounded
+                    : Icons.route_rounded,
+              ),
+              label: Text(
+                compact
+                    ? (c.calculating
+                          ? '…'
+                          : c.route != null
+                          ? 'Ir'
+                          : 'Ruta')
+                    : label,
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(width: 8),
+        if (compact)
+          IconButton(
+            key: const ValueKey('clear-planning'),
+            tooltip: 'Limpiar',
+            onPressed: clearPlanning,
+            icon: const Icon(Icons.restart_alt_rounded),
+          )
+        else
+          TextButton(
+            key: const ValueKey('clear-planning'),
+            onPressed: clearPlanning,
+            child: const Text('Limpiar'),
+          ),
+        if (c.route != null)
+          IconButton(
+            tooltip: 'Detalles de ruta',
+            onPressed: routeDetails,
+            icon: const Icon(Icons.more_horiz_rounded),
+          ),
+        if (more)
+          PopupMenuButton<Object>(
+            tooltip: 'Más opciones',
+            onSelected: (choice) {
+              if (choice is TravelMode) {
+                c.setTravelMode(choice);
+              } else if (choice == 'gps') {
+                c.locate();
+              } else if (choice == 'favorites') {
+                openFavorites();
+              } else if (choice == 'theme') {
+                ThemePreferencesScope.of(context)
+                    ?.toggle(Theme.of(context).brightness);
+              }
+            },
+            itemBuilder: (_) => [
+              const PopupMenuItem(value: 'gps', child: Text('Mi ubicación')),
+              const PopupMenuItem(value: 'favorites', child: Text('Favoritos')),
+              if (ThemePreferencesScope.of(context) != null)
+                const PopupMenuItem(
+                  value: 'theme',
+                  child: Text('Cambiar tema'),
+                ),
+              for (final mode in TravelMode.values)
+                PopupMenuItem(value: mode, child: Text(mode.label)),
+            ],
+          ),
+      ],
+    );
+  }
+
+  Widget status(BuildContext context, bool compact) {
+    final c = controller;
+    final message = c.locationFailure != null
+        ? c.locationMessage
+        : c.message.isNotEmpty && c.selection == null
+        ? c.message
+        : c.accuracy != null && c.origin?.category == 'gps'
+        ? 'Precisión de ubicación: ±${c.accuracy!.round()} m'
+        : '';
+    if (message.isEmpty) return const SizedBox.shrink();
+    return InkWell(
+      onTap: () => showDialog<void>(
+        context: context,
+        builder: (dialog) => AlertDialog(
+          title: const Text('Estado del recorrido'),
+          content: Text(message),
+          actions: [
+            if (c.locationFailure == LocationFailure.serviceDisabled)
+              TextButton(
+                onPressed: Geolocator.openLocationSettings,
+                child: const Text('Activar ubicación'),
+              ),
+            if (c.locationFailure == LocationFailure.permissionDeniedForever)
+              TextButton(
+                onPressed: Geolocator.openAppSettings,
+                child: const Text('Abrir permisos de la app'),
+              ),
+            TextButton(
+              onPressed: () => Navigator.pop(dialog),
+              child: const Text('Cerrar'),
+            ),
+          ],
+        ),
+      ),
+      child: Text(
+        message,
+        maxLines: compact ? 1 : 2,
+        overflow: TextOverflow.ellipsis,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
     body: SafeArea(
       child: ListenableBuilder(
         listenable: controller,
         builder: (context, _) {
-          final c = controller, scheme = Theme.of(context).colorScheme;
+          final c = controller;
           if (c.state == RegionState.loading) return const BrandLoading();
           if (c.state == RegionState.error) {
             return Center(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Ruta RD Offline',
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                    const SizedBox(height: 16),
-                    Text(c.message, textAlign: TextAlign.center),
-                    FilledButton(
-                      onPressed: c.retry,
-                      child: const Text('Reintentar'),
-                    ),
-                  ],
-                ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(c.message, textAlign: TextAlign.center),
+                  FilledButton(
+                    onPressed: c.retry,
+                    child: const Text('Reintentar'),
+                  ),
+                ],
               ),
             );
           }
-          return SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-            child: Center(
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 760),
+          return LayoutBuilder(
+            builder: (context, bounds) {
+              final keyboard = MediaQuery.viewInsetsOf(context).bottom > 0;
+              final searching = c.query.trim().isNotEmpty;
+              final compact =
+                  bounds.maxHeight < 600 ||
+                  MediaQuery.textScalerOf(context).scale(1) > 1.3;
+              final short = bounds.maxHeight < 360;
+              final editing = keyboard || searching;
+              return Padding(
+                padding: EdgeInsets.fromLTRB(12, compact ? 4 : 8, 12, 8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Row(
-                      children: [
-                        Image.asset(
-                          'assets/brand/ruta_symbol.png',
-                          width: 34,
-                          height: 34,
-                          cacheWidth: 102,
-                          excludeFromSemantics: true,
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Text(
-                            'Ruta RD',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.titleLarge
-                                ?.copyWith(fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                        IconButton(
-                          tooltip: 'Mi ubicación',
-                          onPressed: c.locating ? null : c.locate,
-                          icon: c.locating
-                              ? const SizedBox(
-                                  width: 20,
-                                  height: 20,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                  ),
-                                )
-                              : const Icon(Icons.my_location_rounded),
-                        ),
-                        IconButton(
-                          key: const ValueKey('favorites-panel-toggle'),
-                          tooltip: 'Favoritos',
-                          onPressed: openFavorites,
-                          icon: const Icon(Icons.star_border_rounded),
-                        ),
-                        if (ThemePreferencesScope.of(context) != null)
-                          IconButton(
-                            tooltip:
-                                Theme.of(context).brightness == Brightness.dark
-                                ? 'Activar modo claro'
-                                : 'Activar modo oscuro',
-                            onPressed: () =>
-                                ThemePreferencesScope.of(context)!
-                                    .toggle(Theme.of(context).brightness),
-                            icon: Icon(
-                              Theme.of(context).brightness == Brightness.dark
-                                  ? Icons.light_mode_outlined
-                                  : Icons.dark_mode_outlined,
-                            ),
-                          ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
+                    if (!short) header(context, compact),
+                    const SizedBox(height: 6),
                     PlanningEndpoints(
                       controller: c,
                       originText: originText,
@@ -329,185 +494,80 @@ class _HomeScreenState extends State<HomeScreen> {
                       onSearch: searchEndpoint,
                       onActivate: activateSearch,
                       onChooseMap: chooseMap,
+                      horizontal: bounds.maxWidth >= 600 && compact,
                     ),
-                    if (c.searchBusy)
-                      const Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Text('Buscando en República Dominicana…'),
+                    const SizedBox(height: 8),
+                    if (!compact && !editing)
+                      Wrap(
+                        spacing: 6,
+                        runSpacing: 4,
+                        children: [
+                          for (final mode in TravelMode.values)
+                            ChoiceChip(
+                              key: ValueKey('travel-${mode.assetName}'),
+                              showCheckmark: false,
+                              avatar: Icon(modeIcon(mode), size: 18),
+                              label: Text(mode.label),
+                              selected: c.travelMode == mode,
+                              onSelected: (_) {
+                                FocusScope.of(context).unfocus();
+                                c.setTravelMode(mode);
+                              },
+                            ),
+                        ],
                       ),
-                    if (c.searchNotice.isNotEmpty) Text(c.searchNotice),
-                    if (c.query.trim().isNotEmpty &&
-                        c.results.isEmpty &&
-                        !c.searchBusy)
-                      const Padding(
-                        padding: EdgeInsets.all(12),
-                        child: Text('No se encontraron lugares.'),
-                      ),
-                    if (c.results.isNotEmpty)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8),
-                        child: Material(
-                          color: scheme.surface,
-                          borderRadius: BorderRadius.circular(20),
-                          child: Column(
-                            children: [
-                              for (final place in c.results)
-                                ListTile(
-                                  title: Text(place.name),
-                                  onTap: () => select(place, searchTarget),
-                                  trailing: FavoriteButton(
-                                    controller: favorites,
-                                    entry: Favorite(
-                                      placeId: place.id,
-                                      regionId: place.id.startsWith('rd:')
-                                          ? 'dominican-search'
-                                          : c.region!.manifest.id,
-                                      regionVersion: place.id.startsWith('rd:')
-                                          ? '2026-11-18'
-                                          : c.region!.manifest.version,
-                                    ),
-                                  ),
-                                  subtitle: Wrap(
-                                    spacing: 8,
-                                    children: [
-                                      if (searchTarget == Selection.origin)
-                                        TextButton(
-                                          onPressed: () =>
-                                              select(place, Selection.origin),
-                                          child: const Text('Usar como origen'),
-                                        ),
-                                      if (searchTarget == Selection.destination)
-                                        TextButton(
-                                          onPressed: () => select(
-                                            place,
-                                            Selection.destination,
-                                          ),
-                                          child: const Text(
-                                            'Usar como destino',
-                                          ),
-                                        ),
-                                    ],
+                    if (!editing) ...[
+                      actions(context, compact, more: short),
+                      if (!compact)
+                        SizedBox(
+                          height:
+                              MediaQuery.textScalerOf(context).scale(14) * 1.6,
+                          child: c.route == null
+                              ? null
+                              : Text(
+                                  key: const ValueKey('route-summary'),
+                                  '${formatDistance(c.route!.distanceMeters)} · ${c.route!.estimatedMinutes.ceil()} min aprox. · ${c.route!.mode.label}',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .primary,
+                                    fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                            ],
-                          ),
                         ),
-                      ),
-                    const SizedBox(height: 12),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 6,
-                      children: [
-                        for (final mode in TravelMode.values)
-                          ChoiceChip(
-                            key: ValueKey('travel-${mode.assetName}'),
-                            showCheckmark: false,
-                            avatar: Icon(modeIcon(mode), size: 18),
-                            label: Text(mode.label),
-                            selected: c.travelMode == mode,
-                            onSelected: (_) {
-                              FocusScope.of(context).unfocus();
-                              c.setTravelMode(mode);
-                            },
-                          ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: FilledButton.icon(
-                            onPressed: c.calculating
-                                ? null
-                                : c.route != null
-                                ? () => Navigator.of(context).push(
-                                    MaterialPageRoute<void>(
-                                      builder: (_) => NavigationScreen(home: c),
-                                    ),
-                                  )
-                                : c.origin != null && c.destination != null
-                                ? c.calculate
-                                : null,
-                            icon: Icon(
-                              c.route != null
-                                  ? Icons.navigation_rounded
-                                  : Icons.route_rounded,
-                            ),
-                            label: Text(
-                              c.calculating
-                                  ? 'Calculando…'
-                                  : c.route != null
-                                  ? 'Iniciar navegación'
-                                  : 'Calcular ruta',
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        TextButton(
-                          onPressed: () {
-                            editingTarget = null;
-                            originText.clear();
-                            destinationText.clear();
-                            c.clear();
-                          },
-                          child: const Text('Limpiar'),
-                        ),
-                        if (c.route != null)
-                          IconButton(
-                            tooltip: 'Detalles de ruta',
-                            onPressed: routeDetails,
-                            icon: const Icon(Icons.more_horiz_rounded),
-                          ),
-                      ],
-                    ),
-                    if (c.route != null)
-                      Padding(
-                        key: const ValueKey('route-summary'),
-                        padding: const EdgeInsets.only(top: 6),
-                        child: Text(
-                          '${formatDistance(c.route!.distanceMeters)} · ${c.route!.estimatedMinutes.ceil()} min aprox. · ${c.route!.mode.label}',
-                          style: TextStyle(
-                            color: scheme.primary,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                    if (c.locating)
-                      TextButton(
-                        onPressed: c.cancelLocation,
-                        child: const Text('Cancelar GPS'),
-                      ),
-                    if (c.accuracy != null && c.origin?.category == 'gps')
-                      Text(
-                        'Precisión de ubicación: ±${c.accuracy!.round()} m${c.approximateLocation ? " · Ubicación aproximada" : ""}',
-                      ),
-                    if (c.locationFailure != null) Text(c.locationMessage),
-                    if (c.locationFailure == LocationFailure.serviceDisabled)
-                      TextButton(
-                        onPressed: Geolocator.openLocationSettings,
-                        child: const Text('Activar ubicación'),
-                      ),
-                    if (c.locationFailure ==
-                        LocationFailure.permissionDeniedForever)
-                      TextButton(
-                        onPressed: Geolocator.openAppSettings,
-                        child: const Text('Abrir permisos de la app'),
-                      ),
-                    if (c.message.isNotEmpty && c.selection == null)
-                      Text(c.message, semanticsLabel: c.message),
+                      status(context, compact),
+                    ],
                     const MapCredits(),
-                    LocalMap(
-                      key: const ValueKey('local-map'),
-                      controller: c,
-                      height: math.max(
-                        380,
-                        math.min(560, MediaQuery.sizeOf(context).height * .56),
+                    Expanded(
+                      child: LayoutBuilder(
+                        builder: (context, space) => Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            LocalMap(
+                              key: const ValueKey('local-map'),
+                              controller: c,
+                              height: space.maxHeight,
+                            ),
+                            if (searching)
+                              Positioned.fill(
+                                child: HomeSearchResults(
+                                  controller: c,
+                                  favorites: favorites,
+                                  target: searchTarget,
+                                  onSelect: (place) =>
+                                      select(place, searchTarget),
+                                ),
+                              ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
                 ),
-              ),
-            ),
+              );
+            },
           );
         },
       ),

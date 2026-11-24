@@ -1,4 +1,9 @@
-# Navegación y búsqueda nacional — 1.4.1-demo+9
+# Navegación y búsqueda nacional — 1.5.0-demo+10
+
+La pantalla principal permanece fija y el mapa ocupa el espacio libre. Las
+coincidencias de búsqueda se recorren dentro de su propio panel. Con teclado
+o pantallas pequeñas, los controles se compactan; el transporte está en el
+menú «Transporte», o en «Más opciones» en horizontal con poca altura.
 
 Instalar el APK universal como actualización. Incluye ARM32, ARM64 y x64.
 Elegir **A pie**, **Bici**, **Coche** o **Moto**. Cada modo usa su propia red

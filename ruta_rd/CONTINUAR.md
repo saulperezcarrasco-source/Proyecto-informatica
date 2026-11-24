@@ -5,7 +5,7 @@ Antecedente del 20/11/2026: versión `1.0.1-demo+3`, main. Código de ese APK un
 documentación y evidencia. La etiqueta anterior `v1.0.0-demo` identifica la
 entrega histórica x64, no la actualización universal para teléfonos.
 
-Versión vigente: `1.4.1-demo+9`. El manifiesto de la entrega identifica el commit
+Versión vigente: `1.5.0-demo+10`. El manifiesto de la entrega identifica el commit
 compilado. Añade NavigationController/NavigationScreen para seguimiento GPS en
 primer plano y NationalSearch para 95.118 registros de RD en un isolate. Los
 datos comprimidos están en assets/search/places.rds: conservar esa extensión,
@@ -24,6 +24,12 @@ Evidencia vigente: docs/evidence/precision-navegacion.md. Las mediciones de
 REVVL 7 registradas para 1.1 son históricas; esta 1.2 se valida en emulador.
 
 ## Abrir el proyecto
+
+La interfaz 1.5 usa Column/Expanded: la página de planificación no se desplaza.
+LocalMap recibe la altura disponible y HomeSearchResults limita la lista al
+espacio del mapa. Al escribir se ocultan acciones que no se necesitan; en
+pantallas cortas se usan controles compactos y opciones accesibles desde menú.
+La selección explícita del mapa y los campos A/B conservan su comportamiento.
 
 GitHub: https://github.com/saulperezcarrasco-source/Proyecto-informatica.
 Continuar desde `main`. La actualización publicada conserva el historial remoto
