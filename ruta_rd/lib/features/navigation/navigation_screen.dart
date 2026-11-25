@@ -1,10 +1,12 @@
 import 'package:material_ui/material_ui.dart';
+import 'package:geolocator/geolocator.dart';
 
 import '../../core/models/models.dart';
 import '../../core/distance_format.dart';
 import '../../core/map_credits.dart';
 
 import '../home/home_controller.dart';
+import '../location/location_service.dart';
 import '../map/local_map.dart';
 import 'navigation_controller.dart';
 
@@ -19,6 +21,7 @@ class NavigationScreen extends StatefulWidget {
 class _NavigationScreenState extends State<NavigationScreen>
     with WidgetsBindingObserver {
   late final NavigationController nav;
+  bool _resumeOnForeground = false;
   @override
   void initState() {
     super.initState();
@@ -38,7 +41,11 @@ class _NavigationScreenState extends State<NavigationScreen>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.hidden) {
-      nav.stop();
+      _resumeOnForeground = _resumeOnForeground || nav.active;
+      if (nav.active) nav.stop();
+    } else if (state == AppLifecycleState.resumed && _resumeOnForeground) {
+      _resumeOnForeground = false;
+      nav.start();
     }
   }
 
@@ -148,6 +155,32 @@ class _NavigationScreenState extends State<NavigationScreen>
                               Wrap(
                                 spacing: 8,
                                 children: [
+                                  if (nav.failure ==
+                                          LocationFailure
+                                              .precisePermissionRequired ||
+                                      nav.failure ==
+                                          LocationFailure.permissionDenied ||
+                                      nav.failure ==
+                                          LocationFailure
+                                              .permissionDeniedForever)
+                                    TextButton(
+                                      onPressed: () {
+                                        _resumeOnForeground = true;
+                                        Geolocator.openAppSettings();
+                                      },
+                                      child: const Text(
+                                        'Permisos de ubicación',
+                                      ),
+                                    ),
+                                  if (nav.failure ==
+                                      LocationFailure.serviceDisabled)
+                                    TextButton(
+                                      onPressed: () {
+                                        _resumeOnForeground = true;
+                                        Geolocator.openLocationSettings();
+                                      },
+                                      child: const Text('Activar ubicación'),
+                                    ),
                                   if (nav.offRoute && nav.position != null)
                                     FilledButton.icon(
                                       onPressed: () {

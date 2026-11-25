@@ -1,7 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
+
+import 'native_gnss.dart';
 
 import '../../core/models/models.dart';
 
@@ -31,6 +34,7 @@ enum LocationFailure {
   serviceDisabled,
   permissionDenied,
   permissionDeniedForever,
+  precisePermissionRequired,
   timeout,
   unavailable,
   invalidPosition,
@@ -62,19 +66,9 @@ abstract class GpsPlatform {
 class GeolocatorGpsPlatform implements GpsPlatform {
   @override
   Stream<Position> watch(LocationSettings settings) =>
-      Geolocator.getPositionStream(
-        locationSettings: defaultTargetPlatform == TargetPlatform.android
-            ? AndroidSettings(
-                forceLocationManager: true,
-                accuracy: LocationAccuracy.bestForNavigation,
-                distanceFilter: 2,
-                intervalDuration: const Duration(seconds: 1),
-              )
-            : const LocationSettings(
-                accuracy: LocationAccuracy.bestForNavigation,
-                distanceFilter: 2,
-              ),
-      );
+      defaultTargetPlatform == TargetPlatform.android
+      ? NativeGnss.positions
+      : Geolocator.getPositionStream(locationSettings: settings);
   @override
   Future<bool> isEnabled() => Geolocator.isLocationServiceEnabled();
   @override
@@ -106,23 +100,114 @@ class GpsLocationService implements LocationService {
   }) : platform = platform ?? GeolocatorGpsPlatform();
   final GpsPlatform platform;
   final Duration timeout;
+  Future<bool>? _permissionPending;
+
+  Future<bool> _prepare() => _permissionPending ??= _checkPermission()
+      .whenComplete(() => _permissionPending = null);
+
+  Future<bool> _checkPermission() async {
+    if (!await platform.isEnabled()) {
+      throw const LocationException(LocationFailure.serviceDisabled);
+    }
+    var permission = await platform.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await platform.requestPermission();
+    }
+    if (permission == LocationPermission.deniedForever) {
+      throw const LocationException(LocationFailure.permissionDeniedForever);
+    }
+    if (permission != LocationPermission.always &&
+        permission != LocationPermission.whileInUse) {
+      throw const LocationException(LocationFailure.permissionDenied);
+    }
+    return platform.isApproximate();
+  }
+
+  @override
+  Stream<LocationReading> watch() {
+    late final StreamController<LocationReading> output;
+    StreamSubscription<Position>? native;
+    var cancelled = false;
+
+    LocationException failure(Object error) => error is LocationException
+        ? error
+        : error is LocationServiceDisabledException
+        ? const LocationException(LocationFailure.serviceDisabled)
+        : error is PermissionDeniedException
+        ? const LocationException(LocationFailure.permissionDenied)
+        : LocationException(
+            error is PlatformException
+                ? switch (error.code) {
+                    'PRECISE_PERMISSION_REQUIRED' =>
+                      LocationFailure.precisePermissionRequired,
+                    'SERVICE_DISABLED' => LocationFailure.serviceDisabled,
+                    _ => LocationFailure.unavailable,
+                  }
+                : LocationFailure.unavailable,
+          );
+
+    Future<void> start() async {
+      try {
+        final approximate = await _prepare();
+        if (cancelled) return;
+        if (approximate) {
+          throw const LocationException(
+            LocationFailure.precisePermissionRequired,
+          );
+        }
+        native = platform
+            .watch(
+              const LocationSettings(
+                accuracy: LocationAccuracy.bestForNavigation,
+                distanceFilter: 0,
+              ),
+            )
+            .listen(
+              (p) {
+                if (cancelled) return;
+                output.add(
+                  LocationReading(
+                    Coordinate(lat: p.latitude, lon: p.longitude),
+                    p.accuracy,
+                    timestamp: p.timestamp,
+                    heading:
+                        p.speed > .5 && p.heading.isFinite && p.heading >= 0
+                        ? p.heading
+                        : null,
+                  ),
+                );
+              },
+              onError: (Object error, StackTrace stack) {
+                if (!cancelled) output.addError(failure(error), stack);
+              },
+              onDone: () {
+                if (!cancelled) unawaited(output.close());
+              },
+            );
+      } catch (error, stack) {
+        if (!cancelled) {
+          output.addError(failure(error), stack);
+          unawaited(output.close());
+        }
+      }
+    }
+
+    output = StreamController<LocationReading>(
+      onListen: start,
+      onPause: () => native?.pause(),
+      onResume: () => native?.resume(),
+      onCancel: () async {
+        cancelled = true;
+        await native?.cancel();
+      },
+    );
+    return output.stream;
+  }
+
   @override
   Future<LocationReading> getCurrentLocation() async {
     try {
-      if (!await platform.isEnabled()) {
-        throw const LocationException(LocationFailure.serviceDisabled);
-      }
-      var permission = await platform.checkPermission();
-      if (permission == LocationPermission.denied) {
-        permission = await platform.requestPermission();
-      }
-      if (permission == LocationPermission.deniedForever) {
-        throw const LocationException(LocationFailure.permissionDeniedForever);
-      }
-      if (permission != LocationPermission.always &&
-          permission != LocationPermission.whileInUse) {
-        throw const LocationException(LocationFailure.permissionDenied);
-      }
+      final approximate = await _prepare();
       final p = await platform
           .position(
             LocationSettings(
@@ -134,7 +219,7 @@ class GpsLocationService implements LocationService {
       final reading = LocationReading(
         Coordinate(lat: p.latitude, lon: p.longitude),
         p.accuracy,
-        approximate: await platform.isApproximate(),
+        approximate: approximate,
         heading: p.speed > .5 && p.heading.isFinite && p.heading >= 0
             ? p.heading
             : null,
@@ -154,35 +239,6 @@ class GpsLocationService implements LocationService {
       throw const LocationException(LocationFailure.permissionDenied);
     } catch (_) {
       throw const LocationException(LocationFailure.unavailable);
-    }
-  }
-
-  @override
-  Stream<LocationReading> watch() async* {
-    // Requests permission only when the user explicitly starts navigation.
-    final first = await getCurrentLocation();
-    yield first;
-    try {
-      await for (final p in platform.watch(
-        const LocationSettings(
-          accuracy: LocationAccuracy.bestForNavigation,
-          distanceFilter: 2,
-        ),
-      )) {
-        yield LocationReading(
-          Coordinate(lat: p.latitude, lon: p.longitude),
-          p.accuracy,
-          approximate: first.approximate,
-          timestamp: p.timestamp,
-          heading: p.speed > .5 && p.heading.isFinite && p.heading >= 0
-              ? p.heading
-              : null,
-        );
-      }
-    } on LocationServiceDisabledException {
-      throw const LocationException(LocationFailure.serviceDisabled);
-    } on PermissionDeniedException {
-      throw const LocationException(LocationFailure.permissionDenied);
     }
   }
 }

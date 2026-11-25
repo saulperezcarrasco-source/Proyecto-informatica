@@ -1,5 +1,12 @@
 # Avance
 
+1.5.1-demo+11: navegación con proveedor Android GPS/GNSS explícito, sin consulta
+puntual previa ni timeout de 15 s para comenzar el seguimiento. Se libera el
+proveedor al cancelar incluso sin primer fix; se recupera al volver al primer
+plano y se conserva la pausa manual. Permiso preciso y ubicación desactivada
+tienen accesos a sus ajustes. 68 pruebas locales y análisis limpios.
+Evidencia de validación Android: [GPS satelital sin red](evidence/gps-satelital-offline.md).
+
 1.5.0-demo+10: pantalla de planificación sin desplazamiento global. El mapa usa
 el espacio restante, los resultados se desplazan dentro de un panel acotado y
 la distribución se adapta al teclado, texto grande y orientación horizontal.

@@ -5,7 +5,7 @@ Antecedente del 20/11/2026: versión `1.0.1-demo+3`, main. Código de ese APK un
 documentación y evidencia. La etiqueta anterior `v1.0.0-demo` identifica la
 entrega histórica x64, no la actualización universal para teléfonos.
 
-Versión vigente: `1.5.0-demo+10`. El manifiesto de la entrega identifica el commit
+Versión vigente: `1.5.1-demo+11`. El manifiesto de la entrega identifica el commit
 compilado. Añade NavigationController/NavigationScreen para seguimiento GPS en
 primer plano y NationalSearch para 95.118 registros de RD en un isolate. Los
 datos comprimidos están en assets/search/places.rds: conservar esa extensión,
@@ -24,6 +24,15 @@ Evidencia vigente: docs/evidence/precision-navegacion.md. Las mediciones de
 REVVL 7 registradas para 1.1 son históricas; esta 1.2 se valida en emulador.
 
 ## Abrir el proyecto
+
+GNSS 1.5.1: MainActivity registra el EventChannel `ruta_rd/gnss` con
+GnssStreamHandler, que solicita GPS_PROVIDER a 1 s / 0 m y libera la suscripción
+al cancelar. NativeGnss decodifica las lecturas y GpsLocationService.watch usa
+un StreamController cancelable mientras espera la primera señal. Los permisos
+siguen gestionados por Geolocator. El seguimiento requiere ubicación precisa;
+la consulta puntual de planificación conserva su timeout independiente.
+NavigationScreen recupera el seguimiento al regresar del fondo/ajustes sin
+anular una pausa manual. Consultar docs/evidence/gps-satelital-offline.md.
 
 La interfaz 1.5 usa Column/Expanded: la página de planificación no se desplaza.
 LocalMap recibe la altura disponible y HomeSearchResults limita la lista al

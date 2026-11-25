@@ -63,6 +63,8 @@ class HomeController extends ChangeNotifier {
   LocationFailure? locationFailure;
   int _locationRequest = 0;
   String get locationMessage => switch (locationFailure) {
+    LocationFailure.precisePermissionRequired =>
+      'Activa la ubicación precisa en los permisos de la app.',
     LocationFailure.serviceDisabled =>
       'La ubicación está desactivada. Actívala o elige el origen en el mapa.',
     LocationFailure.permissionDenied => 'No se concedió el permiso. Puedes volver a intentarlo o elegir el origen en el mapa.',

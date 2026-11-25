@@ -1,5 +1,12 @@
 # Contratos iniciales
 
+GNSS 1.5.1: GpsLocationService.watch comprueba permisos y abre un stream
+cancelable sin consulta puntual previa. En Android recibe GPS_PROVIDER mediante
+EventChannel `ruta_rd/gnss`, 1 s / 0 m; la última cancelación libera el proveedor.
+Ubicación aproximada produce precisePermissionRequired para navegación. La
+consulta puntual conserva timeout propio. Pausar/volver respeta la pausa manual;
+la antigüedad y precisión de cada fix se validan antes de avanzar sobre la ruta.
+
 Ampliación 1.3: TravelMode (walking, bicycle, car, motorcycle) selecciona el
 grafo y una velocidad media de referencia. RouteResult.mode es walking por
 defecto para conservar fixtures/piloto; los perfiles nacionales lo propagan.

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:ruta_rd/core/models/models.dart';
 import 'package:ruta_rd/features/home/home_controller.dart';
@@ -30,6 +31,9 @@ class FakeGps extends GpsPlatform {
   LocationPermission permission = LocationPermission.whileInUse;
   LocationPermission granted = LocationPermission.whileInUse;
   int requests = 0, positions = 0;
+  int watches = 0;
+  Stream<Position> updates = const Stream.empty();
+  LocationSettings? watchSettings;
   LocationSettings? settings;
   Future<Position> Function() read = () async => samplePosition();
   @override
@@ -51,6 +55,12 @@ class FakeGps extends GpsPlatform {
 
   @override
   Future<bool> isApproximate() async => approximate;
+  @override
+  Stream<Position> watch(LocationSettings value) {
+    watches++;
+    watchSettings = value;
+    return updates;
+  }
 }
 
 class StubLocation extends LocationService {
@@ -68,6 +78,78 @@ Matcher failure(LocationFailure value) =>
     isA<LocationException>().having((error) => error.failure, 'failure', value);
 
 void main() {
+  test('cancelar mientras se esperan satélites libera el proveedor sin recibir un fix', () async {
+    final updates = StreamController<Position>();
+    var released = false;
+    updates.onCancel = () {
+      released = true;
+    };
+    final native = FakeGps()..updates = updates.stream;
+    final subscription = GpsLocationService(platform: native)
+        .watch()
+        .listen((_) {});
+    await Future<void>.delayed(Duration.zero);
+    expect(native.watches, 1);
+    await subscription.cancel().timeout(const Duration(seconds: 1));
+    expect(released, isTrue);
+    await updates.close();
+  });
+  test('navegación espera el primer fix sin depender de la consulta puntual ni su timeout', () async {
+    final updates = StreamController<Position>();
+    var cancelled = false;
+    updates.onCancel = () => cancelled = true;
+    final native = FakeGps()
+      ..read = () {
+        throw TimeoutException('La consulta puntual no debe ejecutarse');
+      }
+      ..updates = updates.stream;
+    final service = GpsLocationService(
+      platform: native,
+      timeout: const Duration(milliseconds: 5),
+    );
+    final readings = <LocationReading>[], errors = <Object>[];
+    final subscription = service.watch().listen(
+      readings.add,
+      onError: errors.add,
+    );
+    await Future<void>.delayed(const Duration(milliseconds: 30));
+    expect(native.positions, 0);
+    expect(native.watches, 1);
+    expect(errors, isEmpty);
+    expect(native.watchSettings!.distanceFilter, 0);
+    updates.add(samplePosition(accuracy: 80));
+    updates.add(samplePosition(accuracy: 5));
+    await Future<void>.delayed(Duration.zero);
+    expect(readings.map((r) => r.accuracy), [80, 5]);
+    await subscription.cancel();
+    expect(cancelled, isTrue);
+    await updates.close();
+  });
+  test(
+    'navegación pide ubicación precisa y traduce fallos del GPS nativo',
+    () async {
+      final native = FakeGps()..approximate = true;
+      await expectLater(
+        GpsLocationService(platform: native).watch(),
+        emitsError(failure(LocationFailure.precisePermissionRequired)),
+      );
+      expect(native.positions, 0);
+      expect(native.watches, 0);
+      native.approximate = false;
+      for (final entry in {
+        'PRECISE_PERMISSION_REQUIRED':
+            LocationFailure.precisePermissionRequired,
+        'SERVICE_DISABLED': LocationFailure.serviceDisabled,
+        'GPS_UNAVAILABLE': LocationFailure.unavailable,
+      }.entries) {
+        native.updates = Stream.error(PlatformException(code: entry.key));
+        await expectLater(
+          GpsLocationService(platform: native).watch(),
+          emitsError(failure(entry.value)),
+        );
+      }
+    },
+  );
   test(
     'GPS desactivado, denegado y bloqueado sin bucles de permisos',
     () async {

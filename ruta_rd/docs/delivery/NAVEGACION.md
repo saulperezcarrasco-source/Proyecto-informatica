@@ -1,4 +1,12 @@
-# Navegación y búsqueda nacional — 1.5.0-demo+10
+# Navegación y búsqueda nacional — 1.5.1-demo+11
+
+La navegación usa GPS satelital directo en Android y sigue esperando la primera
+posición sin cortarse a los 15 segundos. Activar «Usar ubicación precisa» en los
+permisos de Ruta RD Offline y mantener la ubicación del teléfono encendida.
+Los botones de error abren los ajustes correspondientes. Sin buena recepción
+puede tardar en obtener una lectura fiable; la app muestra su estado y no inventa
+avance con señales imprecisas. El seguimiento se pausa en segundo plano y se
+reanuda al regresar, conservando una pausa elegida manualmente.
 
 La pantalla principal permanece fija y el mapa ocupa el espacio libre. Las
 coincidencias de búsqueda se recorren dentro de su propio panel. Con teclado

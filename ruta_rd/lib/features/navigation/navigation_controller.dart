@@ -156,6 +156,7 @@ class NavigationController extends ChangeNotifier {
   DateTime? _trustedTime, lastFix;
   double heading = 0, accuracy = 0, travelled = 0;
   double? _movingSpeed;
+  LocationFailure? failure;
   String status = 'Pulsa iniciar para seguir tu ubicación.',
       instruction = 'Continúa por la ruta';
   double instructionMeters = 0;
@@ -176,7 +177,8 @@ class NavigationController extends ChangeNotifier {
       return;
     }
     active = true;
-    status = 'Buscando señal GPS…';
+    failure = null;
+    status = 'Buscando GPS satelital…';
     notifyListeners();
     _subscription = location.watch().listen(
       accept,
@@ -184,8 +186,13 @@ class NavigationController extends ChangeNotifier {
         if (disposed) {
           return;
         }
+        failure = error is LocationException
+            ? error.failure
+            : LocationFailure.unavailable;
         status = error is LocationException
             ? switch (error.failure) {
+                LocationFailure.precisePermissionRequired =>
+                  'Activa «Usar ubicación precisa» en los permisos de la app.',
                 LocationFailure.permissionDenied ||
                 LocationFailure.permissionDeniedForever => 'Permiso GPS no concedido. Puedes volver al mapa y elegir puntos.',
                 LocationFailure.serviceDisabled =>
@@ -210,7 +217,9 @@ class NavigationController extends ChangeNotifier {
           active &&
           (lastFix == null ||
               DateTime.now().difference(lastFix!).inSeconds > 15)) {
-        status = 'Esperando una posición GPS reciente…';
+        status = lastFix == null
+            ? 'Buscando satélites GPS. Acércate a una ventana o sal al aire libre; sin internet puede tardar más.'
+            : 'Esperando una posición GPS reciente…';
         notifyListeners();
       }
     });
