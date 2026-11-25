@@ -35,6 +35,20 @@ suscripción directa de la app al proveedor `gps`, a 1 s y HIGH_ACCURACY.
 La prueba aprobada usa el receptor nativo del emulador; no acredita satélites
 físicos. La aplicación normal se reinstala después del fixture de integración.
 
+La aplicación normal release 1.5.1-demo+11 también pasó la revisión nativa en
+modo avión, Wi-Fi y datos apagados: 209 → 104 → 0 m, flecha móvil, llegada,
+reanudación después de ir a Inicio y vuelta a la app, y pausa manual conservada
+al hacer lo mismo. Se aceptó el permiso preciso solicitado por Android.
+Al salir de navegación quedó abierto el mapa principal con su ruta, y se
+restauraron los ajustes de red originales del emulador.
+
+APK universal de 208.531.590 bytes; código compilado
+`c01dd0cf3e54d1517af813a7b830caf525a6a6e4`; SHA256
+`4bc8b2b495bb286d52eb322308d6b7072de428c372b7ceae31cbf4d62bdf0bd1`.
+Firma, ARM32/ARM64/x64 y alineación ZIP/ELF de 16 KB aprobadas.
+Capturas del APK normal: [avance](gnss-offline-avance.png),
+[llegada](gnss-offline-llegada.png) y [pantalla final](gnss-offline-final.png).
+
 El usuario solo puede probar el teléfono dentro de casa y, el 25/11, pidió
 continuar con emulador y APK. Por tanto, esta entrega no acredita recepción
 GNSS física ni precisión real al aire libre. La disponibilidad y precisión
