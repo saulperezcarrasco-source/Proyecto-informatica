@@ -7,6 +7,7 @@ import '../../core/map_credits.dart';
 
 import '../home/home_controller.dart';
 import '../location/location_service.dart';
+import '../location/gps_diagnostics.dart';
 import '../map/local_map.dart';
 import 'navigation_controller.dart';
 
@@ -217,6 +218,16 @@ class _NavigationScreenState extends State<NavigationScreen>
                                     onPressed: () => nav.setFollow(true),
                                     icon: const Icon(Icons.my_location),
                                     label: const Text('Seguir mi posición'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () => showModalBottomSheet<void>(
+                                      context: context,
+                                      isScrollControlled: true,
+                                      builder: (_) => GpsDiagnosticsPanel(
+                                        navigationStatus: () => nav.status,
+                                      ),
+                                    ),
+                                    child: const Text('Estado del GPS'),
                                   ),
                                   TextButton(
                                     onPressed: () =>

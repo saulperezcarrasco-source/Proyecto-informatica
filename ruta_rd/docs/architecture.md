@@ -1,5 +1,11 @@
 # Arquitectura y alcance
 
+GPS 1.6.1: consulta precisa de origen y navegación comparten el canal satelital.
+La consulta puntual posee su propia suscripción cancelable de hasta 60 s; no
+detiene otras suscripciones. GnssStatus.Callback solo recoge diagnóstico y nunca
+bloquea posiciones si no informa satélites. El panel de diagnóstico se actualiza
+cada 2 s mientras está abierto y permite copiar un informe sin coordenadas.
+
 Ampliación 1.3: los cuatro modos de transporte tienen perfiles separados; a pie
 conserva el piloto/RDI1 y bici/coche/moto usan RDI2 con accesos, sentidos y giros
 OSM. Un único worker nacional activo limita memoria al cambiar modo. El grafo

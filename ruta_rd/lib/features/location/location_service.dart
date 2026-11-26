@@ -15,12 +15,15 @@ class LocationReading {
     this.approximate = false,
     this.heading,
     this.timestamp,
+    this.speed,
+    this.speedAccuracy,
   });
   final Coordinate coordinate;
   final double accuracy;
   final bool approximate;
   final double? heading;
   final DateTime? timestamp;
+  final double? speed, speedAccuracy;
   bool get isValid =>
       coordinate.lat.isFinite &&
       coordinate.lon.isFinite &&
@@ -48,6 +51,7 @@ class LocationException implements Exception {
 
 abstract class LocationService {
   Future<LocationReading> getCurrentLocation();
+  Future<void> cancelCurrentLocation() async {}
   Stream<LocationReading> watch() =>
       Stream.error(const LocationException(LocationFailure.unavailable));
 }
@@ -60,10 +64,39 @@ abstract class GpsPlatform {
   Future<LocationPermission> checkPermission();
   Future<LocationPermission> requestPermission();
   Future<Position> position(LocationSettings settings);
+  Future<Position> precisePosition(LocationSettings settings) =>
+      position(settings);
+  Future<void> cancelPosition() async {}
   Future<bool> isApproximate();
 }
 
 class GeolocatorGpsPlatform implements GpsPlatform {
+  SatellitePositionRequest? _request;
+  @override
+  Future<Position> precisePosition(LocationSettings settings) async {
+    if (defaultTargetPlatform != TargetPlatform.android) {
+      return position(settings);
+    }
+    await cancelPosition();
+    final request = SatellitePositionRequest(
+      NativeGnss.positions,
+      settings.timeLimit ?? const Duration(seconds: 60),
+    );
+    _request = request;
+    try {
+      return await request.future;
+    } finally {
+      if (identical(_request, request)) _request = null;
+    }
+  }
+
+  @override
+  Future<void> cancelPosition() async {
+    final previous = _request;
+    _request = null;
+    await previous?.cancel();
+  }
+
   @override
   Stream<Position> watch(LocationSettings settings) =>
       defaultTargetPlatform == TargetPlatform.android
@@ -96,11 +129,17 @@ class GeolocatorGpsPlatform implements GpsPlatform {
 class GpsLocationService implements LocationService {
   GpsLocationService({
     GpsPlatform? platform,
-    this.timeout = const Duration(seconds: 15),
+    this.timeout = const Duration(seconds: 60),
   }) : platform = platform ?? GeolocatorGpsPlatform();
   final GpsPlatform platform;
   final Duration timeout;
   Future<bool>? _permissionPending;
+  int _readRevision = 0;
+  @override
+  Future<void> cancelCurrentLocation() async {
+    _readRevision++;
+    await platform.cancelPosition();
+  }
 
   Future<bool> _prepare() => _permissionPending ??= _checkPermission()
       .whenComplete(() => _permissionPending = null);
@@ -170,6 +209,11 @@ class GpsLocationService implements LocationService {
                     Coordinate(lat: p.latitude, lon: p.longitude),
                     p.accuracy,
                     timestamp: p.timestamp,
+                    speed: p.speed.isFinite && p.speed >= 0 ? p.speed : null,
+                    speedAccuracy:
+                        p.speedAccuracy.isFinite && p.speedAccuracy >= 0
+                        ? p.speedAccuracy
+                        : null,
                     heading:
                         p.speed >= 1.2 &&
                             p.heading.isFinite &&
@@ -211,16 +255,21 @@ class GpsLocationService implements LocationService {
 
   @override
   Future<LocationReading> getCurrentLocation() async {
+    final revision = ++_readRevision;
     try {
       final approximate = await _prepare();
-      final p = await platform
-          .position(
-            LocationSettings(
-              accuracy: LocationAccuracy.high,
-              timeLimit: timeout,
-            ),
-          )
-          .timeout(timeout);
+      if (revision != _readRevision) {
+        throw const LocationException(LocationFailure.unavailable);
+      }
+      final settings = LocationSettings(
+        accuracy: LocationAccuracy.high,
+        timeLimit: timeout,
+      );
+      final p =
+          await (approximate
+                  ? platform.position(settings)
+                  : platform.precisePosition(settings))
+              .timeout(timeout);
       final reading = LocationReading(
         Coordinate(lat: p.latitude, lon: p.longitude),
         p.accuracy,

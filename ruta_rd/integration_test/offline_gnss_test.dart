@@ -7,6 +7,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:ruta_rd/core/models/models.dart';
 import 'package:ruta_rd/features/home/home_controller.dart';
 import 'package:ruta_rd/features/location/location_service.dart';
+import 'package:ruta_rd/features/location/gps_diagnostics.dart';
 import 'package:ruta_rd/features/navigation/navigation_controller.dart';
 import 'package:ruta_rd/features/navigation/navigation_screen.dart';
 
@@ -28,6 +29,10 @@ void main() {
       Selection.destination,
     );
     await home.calculate();
+    debugPrint('GNSS_SINGLE_WAIT');
+    final originFix = await GpsLocationService().getCurrentLocation();
+    expect(originFix.isValid, isTrue);
+    debugPrint('GNSS_SINGLE_FIX_PASS accuracy=${originFix.accuracy}');
     final route = home.route!;
     final nav = NavigationController(
       route: route,
@@ -74,6 +79,12 @@ void main() {
     debugPrint(
       'GNSS_OFFLINE_PASS first=$first final=${nav.remainingMeters} accuracy=${nav.accuracy}',
     );
+    final diagnostics = await GpsDiagnostics.read();
+    expect(diagnostics.data['gpsEnabled'], isTrue);
+    expect(diagnostics.data['tracking'], isTrue);
+    expect(diagnostics.data['fixesReceived'], greaterThan(0));
+    expect(diagnostics.data['fixAgeMillis'], lessThan(15000));
+    debugPrint('GNSS_DIAGNOSTICS_PASS ${jsonEncode(diagnostics.data)}');
     if (timings.isNotEmpty) {
       final builds =
           timings.map((t) => t.buildDuration.inMicroseconds / 1000).toList()

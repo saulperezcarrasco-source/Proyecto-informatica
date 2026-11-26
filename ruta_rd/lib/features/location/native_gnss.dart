@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -39,5 +41,37 @@ class NativeGnss {
           ? number('speedAccuracy')
           : double.infinity,
     );
+  }
+}
+
+/// A single fresh fix that releases its listener on success, timeout or cancel.
+class SatellitePositionRequest {
+  SatellitePositionRequest(Stream<Position> source, Duration timeout) {
+    _timer = Timer(timeout, () => _finish(error: TimeoutException('GPS')));
+    _subscription = source.listen(
+      (position) => _finish(position: position),
+      onError: (Object error) => _finish(error: error),
+      onDone: () => _finish(error: StateError('GPS stream ended')),
+    );
+    if (_result.isCompleted) unawaited(_subscription?.cancel());
+  }
+  final _result = Completer<Position>();
+  StreamSubscription<Position>? _subscription;
+  Timer? _timer;
+  Future<Position> get future => _result.future;
+  void _finish({Position? position, Object? error}) {
+    if (_result.isCompleted) return;
+    _timer?.cancel();
+    unawaited(_subscription?.cancel());
+    if (position != null) {
+      _result.complete(position);
+    } else {
+      _result.completeError(error!);
+    }
+  }
+
+  Future<void> cancel() async {
+    _finish(error: StateError('GPS request cancelled'));
+    await _subscription?.cancel();
   }
 }

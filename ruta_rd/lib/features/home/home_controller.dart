@@ -80,6 +80,7 @@ class HomeController extends ChangeNotifier {
   void dispose() {
     disposed = true;
     _locationRequest++;
+    unawaited(location.cancelCurrentLocation());
     _searchDebounce?.cancel();
     nationalSearch?.dispose();
     islandRouting.dispose();
@@ -366,6 +367,7 @@ class HomeController extends ChangeNotifier {
 
   void _cancelLocationRequest() {
     _locationRequest++;
+    unawaited(location.cancelCurrentLocation());
     locating = false;
     locationFailure = null;
   }

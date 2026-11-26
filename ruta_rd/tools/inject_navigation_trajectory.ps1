@@ -4,11 +4,26 @@ $ErrorActionPreference='Stop'
 $adb=Join-Path $env:LOCALAPPDATA 'Android/sdk/platform-tools/adb.exe'
 $device='emulator-5554'
 if($device -notmatch '^emulator-'){throw 'Solo se inyecta GPS en emulador'}
+function Allow-Gps {
+  & $adb -s $device shell uiautomator dump /sdcard/gnss-permissions.xml | Out-Null
+  [xml]$ui=(& $adb -s $device shell cat /sdcard/gnss-permissions.xml) -join "`n"
+  $allow=$ui.SelectSingleNode('//node[@text="While using the app"]')
+  if($allow){
+    $b=[regex]::Matches($allow.bounds,'\d+') | ForEach-Object {[int]$_.Value}
+    & $adb -s $device shell input tap ([int](($b[0]+$b[2])/2)) ([int](($b[1]+$b[3])/2))
+  }
+}
 $timer=[Diagnostics.Stopwatch]::StartNew()
 $coordinates=$null
+$singleHandled=$false
 while($timer.Elapsed.TotalSeconds -lt 300){
   if(Test-Path build/gnss-native.log){
     $log=[string](Get-Content build/gnss-native.log -Raw -Encoding UTF8)
+    if(-not $singleHandled -and $log -match 'GNSS_SINGLE_WAIT'){
+      Allow-Gps
+      & $adb -s $device emu geo fix -69.8844188 18.4737075 0 8 0 | Out-Null
+      $singleHandled=$true
+    }
     $ready=[regex]::Match($log,'GNSS_READY (\{[^\r\n]+\})')
     if($ready.Success){$coordinates=$ready.Groups[1].Value | ConvertFrom-Json;break}
     if($log -match 'BUILD FAILED|Compilation failed|Error:'){throw 'Fallo la compilacion de la prueba Android'}
@@ -17,18 +32,12 @@ while($timer.Elapsed.TotalSeconds -lt 300){
 }
 if(-not $coordinates){throw 'La prueba no inicio el seguimiento GNSS'}
 # flutter drive reinstalls the fixture and may reset location permission.
-& $adb -s $device shell uiautomator dump /sdcard/gnss-permissions.xml | Out-Null
-[xml]$ui=(& $adb -s $device shell cat /sdcard/gnss-permissions.xml) -join "`n"
-$allow=$ui.SelectSingleNode('//node[@text="While using the app"]')
-if($allow){
-  $b=[regex]::Matches($allow.bounds,'\d+') | ForEach-Object {[int]$_.Value}
-  & $adb -s $device shell input tap ([int](($b[0]+$b[2])/2)) ([int](($b[1]+$b[3])/2))
-}
+Allow-Gps
 # Wait beyond the former 15 second startup gate before supplying the route.
 Start-Sleep -Seconds 18
 & $adb -s $device shell dumpsys location | Out-File build/gnss-native-providers.txt -Encoding utf8
 function Fix([double]$lat,[double]$lon){
-  & $adb -s $device emu geo fix ($lon.ToString('R',[Globalization.CultureInfo]::InvariantCulture)) ($lat.ToString('R',[Globalization.CultureInfo]::InvariantCulture)) | Out-Null
+  & $adb -s $device emu geo fix ($lon.ToString('R',[Globalization.CultureInfo]::InvariantCulture)) ($lat.ToString('R',[Globalization.CultureInfo]::InvariantCulture)) 0 8 6 | Out-Null
   Start-Sleep -Seconds 1
 }
 $path=@($coordinates.path)

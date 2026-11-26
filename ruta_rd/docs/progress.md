@@ -1,5 +1,14 @@
 # Avance
 
+1.6.1-demo+13 (26/11/2026): se conserva velocidad/precisión nativa para evitar
+avance por ruido en reposo; origen preciso usa el canal satelital con espera de
+60 s y cancelación real. Se añade Estado del GPS, con diagnóstico local sin
+coordenadas. El fallo del teléfono reportado sigue pendiente de medición real;
+no se declara resuelto por pasar pruebas simuladas.
+89 pruebas locales aprobadas, análisis limpio y fixture Android offline de
+consulta satelital, progreso/llegada y diagnóstico aprobado en el emulador.
+[Cambios y evidencia](evidence/gps-detenido-diagnostico.md).
+
 1.6.0-demo+12 (25/11/2026): correcciones de continuidad GPS, señal aproximada,
 rumbo, desvíos y llegada en circuitos; giros precalculados y proyección acotada,
 menos reconstrucciones y transición de cámara de 180 ms. Antigüedad nativa

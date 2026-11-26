@@ -401,6 +401,37 @@ class NavigationController extends ChangeNotifier {
       notifyListeners();
       return;
     }
+    final stationary =
+        reading.speed != null &&
+        reading.speedAccuracy != null &&
+        reading.speed!.isFinite &&
+        reading.speedAccuracy!.isFinite &&
+        reading.speed! >= 0 &&
+        reading.speed! <= .2 &&
+        reading.speedAccuracy! >= 0 &&
+        reading.speedAccuracy! <= .5 &&
+        reading.speed! + reading.speedAccuracy! < .8;
+    final noiseRadius = math.max(8.0, reading.accuracy + accuracy.clamp(0, 35));
+    final atDestination =
+        remainingMeters <= 20 && meters(reading.coordinate, destination) <= 10;
+    if (_trustedRaw != null &&
+        stationary &&
+        step <= noiseRadius &&
+        !atDestination) {
+      // A receiver reporting credible zero speed must not turn position noise
+      // into progress, changing ETA, heading or camera movement.
+      lastFix = stamp;
+      _lastSampleMillis = sampleMillis;
+      _trustedSampleMillis = sampleMillis;
+      accuracy = reading.accuracy;
+      _uncertainPosition = null;
+      _guidanceReliable = true;
+      if (!offRoute && !arrived) {
+        status = 'Detenido · GPS ±${accuracy.round()} m';
+      }
+      notifyListeners();
+      return;
+    }
     lastFix = stamp;
     _lastSampleMillis = sampleMillis;
     accuracy = reading.accuracy;

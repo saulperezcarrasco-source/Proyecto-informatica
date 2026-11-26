@@ -1,4 +1,15 @@
-# Navegación y búsqueda nacional — 1.6.0-demo+12
+# Navegación y búsqueda nacional — 1.6.1-demo+13
+
+La consulta precisa de origen usa el mismo proveedor satelital que la navegación
+y espera hasta 60 s. Cancelar o editar el origen libera esa consulta. Durante
+navegación, velocidad cero con incertidumbre conocida y pequeña evita convertir
+oscilaciones GPS en cambios de distancia, ETA o posición. Si el receptor no
+informa precisión de velocidad, no se supone que esté detenido.
+
+**Estado del GPS** permite consultar y copiar versión, dispositivo, permiso,
+satélites informados, lecturas, antigüedad, precisión y velocidad, sin incluir
+coordenadas. Funciona sin internet. No recibir datos de satélites en ese panel
+no demuestra por sí solo un defecto del teléfono.
 
 La navegación usa GPS satelital directo en Android y sigue esperando la primera
 posición sin cortarse a los 15 segundos. Activar «Usar ubicación precisa» en los

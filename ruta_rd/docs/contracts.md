@@ -1,5 +1,13 @@
 # Contratos iniciales
 
+GPS 1.6.1: GpsPlatform.precisePosition usa GPS satelital en Android; la consulta
+aproximada conserva su proveedor compatible. La espera puntual es ahora de 60 s
+y se cancela al editar origen, limpiar o salir. LocationReading incorpora speed
+y speedAccuracy opcionales (m/s). Solo velocidad próxima a cero con incertidumbre
+conocida <=0,5 m/s permite estabilizar ruido en reposo dentro de la incertidumbre
+posicional; comenzar a moverse vuelve a actualizar sin esperar esa distancia.
+El canal de diagnóstico es de solo lectura y no inicia GPS ni requiere internet.
+
 Navegación 1.6: el canal GNSS incluye ageMillis monotónico y precisión de rumbo/
 velocidad opcional; ausencia de precisión no equivale a cero. La proyección y
 los giros se indexan una vez por ruta. position conserva la última posición

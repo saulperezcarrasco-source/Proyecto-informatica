@@ -5,7 +5,7 @@ Antecedente del 20/11/2026: versión `1.0.1-demo+3`, main. Código de ese APK un
 documentación y evidencia. La etiqueta anterior `v1.0.0-demo` identifica la
 entrega histórica x64, no la actualización universal para teléfonos.
 
-Versión vigente: `1.6.0-demo+12`. El manifiesto de la entrega identifica el commit
+Versión vigente: `1.6.1-demo+13`. El manifiesto de la entrega identifica el commit
 compilado. Añade NavigationController/NavigationScreen para seguimiento GPS en
 primer plano y NationalSearch para 95.118 registros de RD en un isolate. Los
 datos comprimidos están en assets/search/places.rds: conservar esa extensión,
@@ -24,6 +24,14 @@ Evidencia vigente: docs/evidence/precision-navegacion.md. Las mediciones de
 REVVL 7 registradas para 1.1 son históricas; esta 1.2 se valida en emulador.
 
 ## Abrir el proyecto
+
+GPS 1.6.1: la consulta precisa de origen también usa NativeGnss, hasta 60 s,
+con SatellitePositionRequest cancelable. La navegación conserva espera sin
+timeout al primer fix. No convertir una velocidad ausente en velocidad cero
+fiable: solo se estabiliza reposo con precisión de velocidad conocida y buena.
+Estado del GPS consulta ruta_rd/gps_diagnostics, sin coordenadas: satélites,
+lecturas recibidas, antigüedad, precisión, velocidad y estado del controlador.
+No usar el resultado simulado para dar por solucionado el fallo del teléfono.
 
 Navegación 1.6: RouteProgress precalcula giros y acota segmentos por distancia
 acumulada. El controlador filtra duplicados/saltos por tiempos monotónicos,

@@ -1,6 +1,6 @@
-# Ruta RD Offline 1.6.0-demo — Android universal
+# Ruta RD Offline 1.6.1-demo — Android universal
 
-Usar `ruta-rd-v1.6.0-demo-android-universal.apk` para telefonos Android.
+Usar `ruta-rd-v1.6.1-demo-android-universal.apk` para telefonos Android.
 Incluye ARM de 32 bits, ARM64 y x86_64. El APK anterior marcado android-x64
 es solo para emuladores compatibles y no debe usarse en telefonos ARM.
 Requiere Android 7.0 o posterior (minSdk 24; targetSdk 36 / Android 16).
@@ -20,6 +20,9 @@ No es una aplicacion para iPhone ni una garantia de todos los dispositivos.
    para seguimiento de posicion, flecha, pausa y distancia restante.
 
 Este APK tiene firma de desarrollo, no es una publicacion Google Play.
+En navegación, Estado del GPS muestra lo que entrega Android y permite copiar
+un diagnóstico sin coordenadas. Sirve para identificar el fallo sin internet;
+una prueba del emulador no acredita recepción satelital del teléfono.
 Incluye verificaciones de firma, las tres arquitecturas completas y alineacion
 ZIP/ELF de 16 KB para las bibliotecas de 64 bits. Estas comprobaciones no
 sustituyen la prueba en cada telefono. No se afirma validacion fisica sin ella.

@@ -203,7 +203,7 @@ void main() {
     },
   );
   test(
-    'permiso puntual, precisión aproximada y tiempo máximo de 15 segundos',
+    'permiso puntual, precisión aproximada y tiempo máximo de 60 segundos',
     () async {
       final native = FakeGps()
         ..permission = LocationPermission.denied
@@ -212,7 +212,7 @@ void main() {
           .getCurrentLocation();
       expect(native.requests, 1);
       expect(native.positions, 1);
-      expect(native.settings!.timeLimit, const Duration(seconds: 15));
+      expect(native.settings!.timeLimit, const Duration(seconds: 60));
       expect(result.coordinate.lat, gps.lat);
       expect(result.accuracy, 8);
       expect(result.approximate, isTrue);
