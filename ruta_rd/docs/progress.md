@@ -3,7 +3,7 @@
 1.6.0-demo+12 (25/11/2026): correcciones de continuidad GPS, señal aproximada,
 rumbo, desvíos y llegada en circuitos; giros precalculados y proyección acotada,
 menos reconstrucciones y transición de cámara de 180 ms. Antigüedad nativa
-monotónica y precisión real del rumbo. 79 pruebas locales aprobadas y análisis
+monotónica y precisión real del rumbo; cámara desde 0,5 m al caminar. 80 pruebas locales aprobadas y análisis
 limpio. [Resultados y alcance](evidence/calidad-navegacion.md).
 
 1.5.1-demo+11: navegación con proveedor Android GPS/GNSS explícito, sin consulta

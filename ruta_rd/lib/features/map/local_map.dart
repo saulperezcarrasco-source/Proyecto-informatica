@@ -154,7 +154,9 @@ class _LocalMapState extends State<LocalMap>
     if (nav.displayPosition == _lastNavigationPosition) return;
     final old = _lastNavigationPosition;
     if (!nav.hasReliablePosition && old != null) return;
-    if (old != null && meters(old, nav.displayPosition!) < 2) return;
+    // Walking fixes can be only ~1 m apart. Waiting for 2 m makes the camera
+    // lag several GPS updates even when a fresh, reliable fix is available.
+    if (old != null && meters(old, nav.displayPosition!) < .5) return;
     _lastNavigationPosition = nav.displayPosition;
     if (_navigationScheduled) return;
     _navigationScheduled = true;

@@ -25,14 +25,18 @@ dependencias o servicios remotos.
   distancia acumulada, evitando recorrer miles de segmentos por cada fix.
   Lecturas sin cambios visibles no reconstruyen la interfaz. La cámara agrupa
   actualizaciones por frame y reduce la transición de 450 a 180 ms; la flecha
-  acompaña la cámara durante la animación.
+  acompaña la cámara durante la animación. Tras confirmar el usuario que el
+  problema principal era el mapa retrasado, se redujo el umbral de seguimiento
+  de 2 a 0,5 m para acompañar pasos a pie sin esperar varias lecturas GPS.
 
 ## Validación local
 
-`flutter analyze`: sin incidencias. `flutter test --reporter expanded`: **79
+`flutter analyze`: sin incidencias. `flutter test --reporter expanded`: **80
 pruebas aprobadas**. Se añadieron casos de señal débil/recuperación, duplicados,
 salto imposible seguido de lectura válida, circuito, interrupción prolongada,
-cruce, desvío, ruido tras llegada y recentrado explícito.
+cruce, desvío, ruido tras llegada y recentrado explícito. Una prueba de cámara
+verifica desplazamiento de aproximadamente 1,1 m en 200 ms, conservación del
+desplazamiento manual y recentrado al pedirlo.
 
 Prueba determinista de coste: la proyección acotada visita 721 de 20.000
 segmentos; encontrar el siguiente giro entre 19.998 usa 14 pasos. Son contadores
@@ -52,6 +56,9 @@ Con frames continuos: 2.363 frames sin red, p90 build 1,478 ms / raster 16,899 m
 2.236 con red, p90 build 3,210 ms / raster 17,612 ms. Medición del fixture en
 emulador, sin comparación equivalente de la versión anterior: no acredita una
 tasa sostenida de 60 FPS ni rendimiento idéntico en teléfonos.
+Estas dos mediciones preceden al último ajuste del umbral de cámara a 0,5 m;
+usan pasos de hasta 9 m. El umbral final se verifica con la prueba específica
+de pasos de un metro y con el APK normal.
 
 Se descartó una ejecución bloqueada por el diálogo Android de permisos: la
 trayectoria había terminado antes de concederse. El helper se corrigió para

@@ -66,7 +66,7 @@ se reanuda salvo si se pausó manualmente. No se solicita ubicación al abrir la
 se implementa navegación en segundo plano. La ruta y A/B elegidos se conservan;
 la flecha representa la ubicación actual, no un cambio de destino.
 La cámara acompaña posiciones con una transición de 180 ms y omite movimientos
-menores de 2 m; arrastrar cancela esa animación. El rumbo interpola el ángulo más
+menores de 0,5 m; arrastrar cancela esa animación. El rumbo interpola el ángulo más
 corto y mantiene la indicación de giro hasta 5 m después del vértice. El tiempo restante
 puede ajustarse a movimiento GPS reciente y fiable; parado conserva la referencia.
 
