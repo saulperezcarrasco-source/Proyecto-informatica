@@ -53,7 +53,7 @@ lecturas antiguas/futuras, duplicadas y saltos imposibles. La continuidad
 de avance ayuda a evitar saltos a otro tramo cercano en cruces. Estas medidas
 no mejoran por sí solas la precisión física del receptor GPS.
 
-La vista de navegación comienza a nivel de calle para mantener visible la línea
+La vista de navegación se centra a nivel de calle al recibir posición GPS para mantener visible la línea
 azul en recorridos cortos. Sus controles reemplazan los botones del mapa de
 planificación. La versión 1.1 se midió en REVVL 7/Android 16; para esta 1.6 el
 usuario eligió continuar las verificaciones en emulador. Falta comprobar una

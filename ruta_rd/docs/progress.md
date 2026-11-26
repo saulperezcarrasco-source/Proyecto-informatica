@@ -5,6 +5,10 @@ rumbo, desvíos y llegada en circuitos; giros precalculados y proyección acotad
 menos reconstrucciones y transición de cámara de 180 ms. Antigüedad nativa
 monotónica y precisión real del rumbo; cámara desde 0,5 m al caminar. 80 pruebas locales aprobadas y análisis
 limpio. [Resultados y alcance](evidence/calidad-navegacion.md).
+APK universal normal instalado y comprobado con y sin red en Pixel_10a: 209 →
+96 → 0 m, seguimiento de cámara/flecha, llegada, reanudación y pausa manual.
+Firma/arquitecturas/alineación aprobadas; huella instalada igual a la entregada.
+Pendiente recepción satelital y rendimiento de esta versión en teléfono físico.
 
 1.5.1-demo+11: navegación con proveedor Android GPS/GNSS explícito, sin consulta
 puntual previa ni timeout de 15 s para comenzar el seguimiento. Se libera el

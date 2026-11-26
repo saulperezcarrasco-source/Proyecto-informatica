@@ -80,7 +80,29 @@ trayectoria en `build/gnss-trajectory.json`. La prueba usa frames continuos para
 ejercitar el mapa, captura excepciones y exige avance y llegada. Después hay que
 reinstalar la aplicación normal con `tools/run_android.ps1`.
 
-## Alcance
+## APK final en el emulador
+
+Aplicación normal universal `1.6.0-demo+12` reinstalada mediante
+`tools/build_phone.ps1` / `tools/run_android.ps1 -SkipBuild`. **PASS sin red y con
+red**: búsqueda A/B, ruta automática, inicio GPS, cámara/flecha acompañando el
+recorrido, distancia 209 → 96 → 0 m y llegada. En ambos escenarios se verificó
+reanudación al volver de Inicio y conservación de pausa manual al hacer lo
+mismo. Android confirmó red validada durante el escenario conectado. Se
+restauraron avión/Wi-Fi/datos a sus valores originales al terminar y quedó
+abierta la aplicación normal con su ruta. No hay entradas AndroidRuntime de
+cierre detectadas en esta comprobación.
+
+![Mapa siguiendo el recorrido sin internet](calidad-navegacion-avance.png)
+
+![Llegada confirmada en el APK normal](calidad-navegacion-llegada.png)
+
+APK de **208.547.974 bytes**, código compilado
+`7ab70951c22c8d22779823c33e8145ee20f32245`. SHA256:
+`5b2220b69ce88f1eca30e2ec5f03da93126f07415791b27a290d476484e23f91`.
+La huella del APK instalado en Android coincide con la del archivo entregado.
+Firma, ARM32/ARM64/x64, assets y alineación ZIP/ELF de 16 KB: aprobados.
+
+## Alcance físico
 
 Las pruebas Android usan coordenadas GPS simuladas únicamente en el emulador
 Pixel_10a. No acreditan precisión satelital física, recepción dentro de casa ni
