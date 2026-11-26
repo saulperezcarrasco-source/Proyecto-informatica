@@ -13,6 +13,9 @@ Position samplePosition({
   double lat = 19.4517,
   double lon = -70.697,
   double accuracy = 8,
+  double speed = 0,
+  double heading = 0,
+  double headingAccuracy = 0,
 }) => Position(
   latitude: lat,
   longitude: lon,
@@ -20,9 +23,9 @@ Position samplePosition({
   timestamp: DateTime(2026, 11, 19),
   altitude: 0,
   altitudeAccuracy: 0,
-  heading: 0,
-  headingAccuracy: 0,
-  speed: 0,
+  heading: heading,
+  headingAccuracy: headingAccuracy,
+  speed: speed,
   speedAccuracy: 0,
 );
 
@@ -78,6 +81,25 @@ Matcher failure(LocationFailure value) =>
     isA<LocationException>().having((error) => error.failure, 'failure', value);
 
 void main() {
+  test(
+    'rumbo nativo exige movimiento y precisión de orientación fiable',
+    () async {
+      final updates = StreamController<Position>();
+      final platform = FakeGps()..updates = updates.stream;
+      final headings = <double?>[];
+      final subscription = GpsLocationService(platform: platform)
+          .watch()
+          .listen((fix) => headings.add(fix.heading));
+      await Future<void>.delayed(Duration.zero);
+      updates.add(samplePosition(speed: 3, heading: 90, headingAccuracy: 100));
+      updates.add(samplePosition(speed: 3, heading: 90, headingAccuracy: 10));
+      updates.add(samplePosition(speed: .2, heading: 180, headingAccuracy: 10));
+      await Future<void>.delayed(Duration.zero);
+      expect(headings, [null, 90, null]);
+      await subscription.cancel();
+      await updates.close();
+    },
+  );
   test('cancelar mientras se esperan satélites libera el proveedor sin recibir un fix', () async {
     final updates = StreamController<Position>();
     var released = false;

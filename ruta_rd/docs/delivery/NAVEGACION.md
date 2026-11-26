@@ -1,4 +1,4 @@
-# Navegación y búsqueda nacional — 1.5.1-demo+11
+# Navegación y búsqueda nacional — 1.6.0-demo+12
 
 La navegación usa GPS satelital directo en Android y sigue esperando la primera
 posición sin cortarse a los 15 segundos. Activar «Usar ubicación precisa» en los
@@ -46,26 +46,28 @@ calles ni información de tránsito. No garantizan transitabilidad en terreno.
 
 Desde 1.000 m se muestran kilómetros: 1 km, 1.1 km, 1.5 km, etc. La distancia
 incluye el progreso por las aproximaciones a origen/destino. Retroceder aumenta
-lo que queda. Lecturas con precisión peor de 35 m mantienen la última posición
-fiable; se descartan lecturas antiguas/futuras y saltos imposibles. La continuidad
+lo que queda. Lecturas con precisión peor de 35 m muestran ubicación aproximada
+en naranja hasta 200 m de incertidumbre, sin avanzar la ruta ni confirmar llegada.
+Con mayor incertidumbre se conserva la última posición conocida. Se descartan
+lecturas antiguas/futuras, duplicadas y saltos imposibles. La continuidad
 de avance ayuda a evitar saltos a otro tramo cercano en cruces. Estas medidas
 no mejoran por sí solas la precisión física del receptor GPS.
 
 La vista de navegación comienza a nivel de calle para mantener visible la línea
 azul en recorridos cortos. Sus controles reemplazan los botones del mapa de
-planificación. La versión 1.1 se midió en REVVL 7/Android 16; para esta 1.3 el
+planificación. La versión 1.1 se midió en REVVL 7/Android 16; para esta 1.6 el
 usuario eligió continuar las verificaciones en emulador. Falta comprobar una
 caminata con GPS físico con esta actualización.
 
 Arrastrar o ampliar el mapa desactiva el seguimiento de cámara. **Seguir mi
 posición** vuelve a centrar. **Pausar** detiene GPS; **Continuar** lo reinicia.
 Salir de navegación o enviar la app al fondo detiene el seguimiento; al volver
-hay que pulsar Continuar. No se solicita ubicación al abrir la aplicación ni
+se reanuda salvo si se pausó manualmente. No se solicita ubicación al abrir la aplicación ni
 se implementa navegación en segundo plano. La ruta y A/B elegidos se conservan;
 la flecha representa la ubicación actual, no un cambio de destino.
-La cámara acompaña posiciones con una transición de 450 ms y omite movimientos
+La cámara acompaña posiciones con una transición de 180 ms y omite movimientos
 menores de 2 m; arrastrar cancela esa animación. El rumbo interpola el ángulo más
-corto y mantiene la indicación de giro hasta 3 m del vértice. El tiempo restante
+corto y mantiene la indicación de giro hasta 5 m después del vértice. El tiempo restante
 puede ajustarse a movimiento GPS reciente y fiable; parado conserva la referencia.
 
 La búsqueda nacional usa 96.873 registros OSM, incluidos tramos de

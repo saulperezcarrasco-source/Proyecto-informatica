@@ -1,5 +1,13 @@
 # Contratos iniciales
 
+Navegación 1.6: el canal GNSS incluye ageMillis monotónico y precisión de rumbo/
+velocidad opcional; ausencia de precisión no equivale a cero. La proyección y
+los giros se indexan una vez por ruta. position conserva la última posición
+fiable; displayPosition puede ofrecer una posición aproximada y se acompaña de
+hasReliablePosition/isApproximatePosition. Ninguna lectura imprecisa produce
+avance ni llegada. La cámara puede seguir displayPosition solo inicialmente o
+por recentrado explícito hasta recuperarse la señal fiable.
+
 GNSS 1.5.1: GpsLocationService.watch comprueba permisos y abre un stream
 cancelable sin consulta puntual previa. En Android recibe GPS_PROVIDER mediante
 EventChannel `ruta_rd/gnss`, 1 s / 0 m; la última cancelación libera el proveedor.

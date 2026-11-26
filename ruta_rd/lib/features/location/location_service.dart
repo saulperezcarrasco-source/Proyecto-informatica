@@ -171,7 +171,12 @@ class GpsLocationService implements LocationService {
                     p.accuracy,
                     timestamp: p.timestamp,
                     heading:
-                        p.speed > .5 && p.heading.isFinite && p.heading >= 0
+                        p.speed >= 1.2 &&
+                            p.heading.isFinite &&
+                            p.heading >= 0 &&
+                            p.headingAccuracy.isFinite &&
+                            p.headingAccuracy >= 0 &&
+                            p.headingAccuracy <= 35
                         ? p.heading
                         : null,
                   ),

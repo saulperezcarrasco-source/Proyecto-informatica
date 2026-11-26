@@ -9,6 +9,8 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
+import android.os.Build
+import android.os.SystemClock
 import android.view.WindowManager
 import io.flutter.plugin.common.EventChannel
 
@@ -38,8 +40,11 @@ class GnssStreamHandler(private val activity: Activity) : EventChannel.StreamHan
                     "longitude" to location.longitude,
                     "accuracy" to if (location.hasAccuracy()) location.accuracy.toDouble() else Double.POSITIVE_INFINITY,
                     "timestamp" to location.time,
+                    "ageMillis" to ((SystemClock.elapsedRealtimeNanos() - location.elapsedRealtimeNanos) / 1000000L).coerceAtLeast(0L),
                     "speed" to if (location.hasSpeed()) location.speed.toDouble() else 0.0,
-                    "heading" to if (location.hasBearing()) location.bearing.toDouble() else -1.0
+                    "heading" to if (location.hasBearing()) location.bearing.toDouble() else -1.0,
+                    "headingAccuracy" to if (Build.VERSION.SDK_INT >= 26 && location.hasBearingAccuracy()) location.bearingAccuracyDegrees.toDouble() else -1.0,
+                    "speedAccuracy" to if (Build.VERSION.SDK_INT >= 26 && location.hasSpeedAccuracy()) location.speedAccuracyMetersPerSecond.toDouble() else -1.0
                 ))
             }
             override fun onProviderDisabled(provider: String) {

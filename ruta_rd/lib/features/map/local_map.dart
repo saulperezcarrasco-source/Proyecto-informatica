@@ -109,6 +109,8 @@ class _LocalMapState extends State<LocalMap>
   RouteResult? previousRoute;
   int previousSelectionVersion = 0;
   Coordinate? _lastNavigationPosition;
+  bool _navigationScheduled = false;
+  int _lastCameraRevision = -1;
   late final AnimationController _cameraAnimation;
   LatLng? _cameraFrom, _cameraTo;
   double _zoomFrom = 17, _zoomTo = 17;
@@ -118,7 +120,7 @@ class _LocalMapState extends State<LocalMap>
     _cameraAnimation =
         AnimationController(
           vsync: this,
-          duration: const Duration(milliseconds: 450),
+          duration: const Duration(milliseconds: 180),
         )..addListener(() {
           if (!mounted ||
               widget.navigation?.follow != true ||
@@ -142,17 +144,27 @@ class _LocalMapState extends State<LocalMap>
 
   void _navigationChanged() {
     final nav = widget.navigation;
-    if (!mounted || nav == null || !nav.follow || nav.position == null) return;
-    if (nav.position == _lastNavigationPosition) return;
+    if (!mounted || nav == null || !nav.follow || nav.displayPosition == null) {
+      return;
+    }
+    if (_lastCameraRevision != nav.cameraRevision) {
+      _lastCameraRevision = nav.cameraRevision;
+      _lastNavigationPosition = null;
+    }
+    if (nav.displayPosition == _lastNavigationPosition) return;
     final old = _lastNavigationPosition;
-    if (old != null && meters(old, nav.position!) < 2) return;
-    _lastNavigationPosition = nav.position;
+    if (!nav.hasReliablePosition && old != null) return;
+    if (old != null && meters(old, nav.displayPosition!) < 2) return;
+    _lastNavigationPosition = nav.displayPosition;
+    if (_navigationScheduled) return;
+    _navigationScheduled = true;
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted && nav.follow) {
-        final target = point(nav.position!);
+      _navigationScheduled = false;
+      if (mounted && widget.navigation == nav && nav.follow) {
+        final target = point(nav.displayPosition!);
         final zoom = math.max(17.0, map.camera.zoom);
         if (old == null ||
-            meters(old, nav.position!) > 1000 ||
+            meters(old, nav.displayPosition!) > 1000 ||
             MediaQuery.disableAnimationsOf(context)) {
           _cameraAnimation.stop();
           map.move(target, zoom);
@@ -172,6 +184,8 @@ class _LocalMapState extends State<LocalMap>
   void didUpdateWidget(covariant LocalMap oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.navigation != widget.navigation) {
+      _lastNavigationPosition = null;
+      _lastCameraRevision = -1;
       oldWidget.navigation?.removeListener(_navigationChanged);
       widget.navigation?.addListener(_navigationChanged);
     }
@@ -422,17 +436,27 @@ class _LocalMapState extends State<LocalMap>
                   listenable: widget.navigation!,
                   builder: (context, _) {
                     final nav = widget.navigation!;
-                    if (nav.position == null) return const SizedBox.shrink();
+                    if (nav.displayPosition == null) {
+                      return const SizedBox.shrink();
+                    }
+                    final tint = nav.hasReliablePosition
+                        ? Colors.blue
+                        : Colors.orange;
+                    // Keep the reliable arrow centred while the camera catches
+                    // up, instead of jumping ahead and sliding back each fix.
+                    final markerPoint = nav.follow && nav.hasReliablePosition
+                        ? MapCamera.of(context).center
+                        : point(nav.displayPosition!);
                     return Stack(
                       children: [
                         CircleLayer(
                           circles: [
                             CircleMarker(
-                              point: point(nav.position!),
+                              point: markerPoint,
                               radius: nav.accuracy.clamp(0, 200),
                               useRadiusInMeter: true,
-                              color: Colors.blue.withValues(alpha: .12),
-                              borderColor: Colors.blue.withValues(alpha: .3),
+                              color: tint.withValues(alpha: .12),
+                              borderColor: tint.withValues(alpha: .3),
                               borderStrokeWidth: 1,
                             ),
                           ],
@@ -440,14 +464,18 @@ class _LocalMapState extends State<LocalMap>
                         MarkerLayer(
                           markers: [
                             Marker(
-                              point: point(nav.position!),
+                              point: markerPoint,
                               width: 54,
                               height: 54,
                               child: Semantics(
                                 key: const ValueKey('navigation-position'),
                                 container: true,
                                 image: true,
-                                label: 'Tu posición actual',
+                                label: nav.hasReliablePosition
+                                    ? 'Tu posición actual'
+                                    : nav.isApproximatePosition
+                                    ? 'Tu posición GPS aproximada'
+                                    : 'Última posición conocida',
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
                                     color: Theme.of(context)
@@ -463,9 +491,9 @@ class _LocalMapState extends State<LocalMap>
                                   ),
                                   child: Transform.rotate(
                                     angle: nav.heading * math.pi / 180,
-                                    child: const Icon(
+                                    child: Icon(
                                       Icons.navigation_rounded,
-                                      color: Colors.blue,
+                                      color: tint,
                                       size: 40,
                                     ),
                                   ),
