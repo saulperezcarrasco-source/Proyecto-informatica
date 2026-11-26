@@ -7,6 +7,9 @@ coordenadas. El fallo del teléfono reportado sigue pendiente de medición real;
 no se declara resuelto por pasar pruebas simuladas.
 89 pruebas locales aprobadas, análisis limpio y fixture Android offline de
 consulta satelital, progreso/llegada y diagnóstico aprobado en el emulador.
+APK normal también aprobado sin/con red: 209 m estables con ruido en reposo,
+209 → 96 → 0 m en movimiento, panel/copia, pausa y reanudación. Huella instalada
+igual al APK universal; no sustituye el diagnóstico pendiente del teléfono.
 [Cambios y evidencia](evidence/gps-detenido-diagnostico.md).
 
 1.6.0-demo+12 (25/11/2026): correcciones de continuidad GPS, señal aproximada,

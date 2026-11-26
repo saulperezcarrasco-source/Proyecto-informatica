@@ -3,6 +3,7 @@
 26/11/2026. El usuario informa que la flecha no avanza, es imprecisa y cambia
 la distancia sin internet. Las pruebas simuladas de 1.6.0 no demuestran que ese
 fallo esté resuelto en su teléfono. No se atribuye a hardware sin medirlo.
+El usuario confirmó que ocurre tanto quieto como en movimiento.
 
 ## Correcciones y observabilidad
 
@@ -44,6 +45,29 @@ precisión 5 m y velocidad 3,087 m/s al final. Son valores **simulados**, no una
 medición del teléfono. La inyección declara velocidad de movimiento (6 nudos)
 para no presentar desplazamientos de coordenadas con velocidad cero como una
 trayectoria coherente. No se usan satélites detectados como condición para navegar.
+
+## APK normal en el emulador
+
+Aplicación universal normal instalada con `tools/build_phone.ps1` y comprobada
+en Pixel_10a sin internet y con red validada por Android. **PASS en ambos casos**:
+con velocidad cero y desplazamiento simulado de unos 6 m, la distancia permanece
+en 209 m; con velocidad de movimiento pasa 209 → 96 → 0 m y confirma llegada.
+Se abrió Estado del GPS, se leyeron datos nativos de esta versión, se pulsó Copiar
+diagnóstico y se cerró el panel sin detener el seguimiento. También pasaron
+reanudación al volver de Inicio y conservación de la pausa manual. Estos datos
+se inyectaron exclusivamente en el emulador.
+
+![Reposo con distancia estable, emulador](gps-reposo-emulador.png)
+
+![Diagnóstico nativo, emulador con señales simuladas](gps-diagnostico-emulador.png)
+
+APK de 208.777.350 bytes, código compilado
+`004235281a5e17efd37af1965f8df95e90f68bf7`. SHA256:
+`79cc3df49327e6be79d7fec3ed53ff5ca14f01a2ac2c945d2c7d9a2874ef2cd4`.
+Firma, ARM32/ARM64/x64, assets y alineación ZIP/ELF de 16 KB aprobados; huella
+instalada igual al archivo entregado. No se detectaron cierres AndroidRuntime
+en la revisión. Se restauraron los ajustes de red originales y quedó abierta
+la aplicación normal con su ruta.
 
 ## Verificación física pendiente
 
